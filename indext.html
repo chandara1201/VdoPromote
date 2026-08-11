@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="km" data-theme="emerald">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ប្រព័ន្ធស្រង់ទិន្នន័យការបង្ហោះ Social Media | Employee Social Accounts</title>
+  
+  <!-- Google Fonts for Khmer & English -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kantenbold&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- External JS Libraries (CDNs) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+  <style>
+    :root {
+      --font-main: 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-xl: 30px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    [data-theme="emerald"] {
+      --bg-main: #f4f7f6; --bg-card: #ffffff; --bg-sidebar: #064e3b;
+      --text-sidebar: #ecfdf5; --sidebar-active: #059669;
+      --text-primary: #0f172a; --text-secondary: #475569;
+      --primary: #059669; --primary-hover: #047857; --border: #e2e8f0;
+    }
+    [data-theme="dark"] {
+      --bg-main: #0f172a; --bg-card: #1e293b; --bg-sidebar: #0f172a;
+      --text-sidebar: #94a3b8; --sidebar-active: #3b82f6;
+      --text-primary: #f8fafc; --text-secondary: #94a3b8;
+      --primary: #3b82f6; --primary-hover: #2563eb; --border: #334155;
+    }
+    [data-theme="cyberpunk"] {
+      --bg-main: #0d0221; --bg-card: #190a38; --bg-sidebar: #0f051d;
+      --text-sidebar: #00f5d4; --sidebar-active: #7b2cbf;
+      --text-primary: #00f5d4; --text-secondary: #f72585;
+      --primary: #f72585; --primary-hover: #b5179e; --border: #3c096c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
+    body { background-color: var(--bg-main); color: var(--text-primary); transition: var(--transition); display: flex; height: 100vh; overflow: hidden; }
+
+    aside.sidebar { width: 280px; background-color: var(--bg-sidebar); color: var(--text-sidebar); display: flex; flex-direction: column; transition: var(--transition); z-index: 1000; border-right: 1px solid var(--border); }
+    .brand { padding: 24px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .brand i { font-size: 1.8rem; color: var(--primary); }
+    .brand h2 { font-size: 1rem; font-weight: 700; }
+
+    .nav-menu { list-style: none; padding: 16px 12px; flex: 1; overflow-y: auto; }
+    .nav-item { margin-bottom: 4px; }
+    .nav-link { display: flex; align-items: center; gap: 14px; padding: 12px 16px; color: inherit; text-decoration: none; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 500; transition: var(--transition); }
+    .nav-link:hover, .nav-link.active { background-color: var(--sidebar-active); color: #fff; }
+    .nav-link i { font-size: 1.2rem; width: 24px; text-align: center; }
+
+    main.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+    header.navbar { height: 70px; background-color: var(--bg-card); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; z-index: 90; }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .clock-display { font-size: 0.95rem; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.03); padding: 6px 12px; border-radius: var(--radius-md); }
+    .header-right { display: flex; align-items: center; gap: 10px; }
+
+    .btn { padding: 8px 16px; border-radius: var(--radius-sm); border: none; font-weight: 600; cursor: pointer; transition: var(--transition); display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; }
+    .btn-primary { background-color: var(--primary); color: #fff; }
+    .btn-primary:hover { background-color: var(--primary-hover); }
+    .btn-danger { background-color: #ef4444; color: #fff; }
+    .btn-danger:hover { background-color: #dc2626; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
+    .btn-outline:hover { background: rgba(0,0,0,0.05); }
+
+    .mobile-menu-btn { display: none; background: transparent; border: none; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; }
+
+    .view-container { flex: 1; padding: 24px; overflow-y: auto; }
+    .view-section { display: none; }
+    .view-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .stat-card { background-color: var(--bg-card); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px; }
+    .stat-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: rgba(0,0,0,0.04); flex-shrink: 0; }
+    .stat-info h4 { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; }
+    .stat-info h2 { font-size: 1.5rem; font-weight: 700; margin-top: 2px; }
+
+    .badge-fb { background-color: #1877f2; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
+    .badge-tt { background-color: #000000; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; border: 1px solid #333; }
+    .badge-type { background-color: rgba(5, 150, 105, 0.12); color: var(--primary); padding: 3px 8px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border); }
+
+    .table-container { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; min-width: 650px; }
+    th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    th { background-color: rgba(0,0,0,0.02); font-weight: 600; color: var(--text-secondary); }
+    tr:hover { background-color: rgba(0,0,0,0.015); }
+
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 16px; }
+    .modal-overlay.active { display: flex; }
+    .modal-content { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-lg); overflow: hidden; }
+    .modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .modal-body { padding: 20px; max-height: 70vh; overflow-y: auto; }
+    .modal-footer { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 10px; }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; color: var(--text-secondary); }
+    .form-control { width: 100%; padding: 10px 12px; border-radius: var(--radius-sm); border: 1px solid var(--border); background-color: var(--bg-main); color: var(--text-primary); font-size: 0.85rem; }
+    .form-control:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .report-paper { background: #fff; color: #000; padding: 24px; border-radius: var(--radius-sm); font-family: 'Kantumruy Pro', monospace; line-height: 1.6; border: 1px solid var(--border); box-shadow: var(--shadow-md); white-space: pre-wrap; font-size: 0.9rem; }
+
+    .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
+    .toast { background: var(--bg-card); color: var(--text-primary); border-left: 5px solid var(--primary); padding: 12px 16px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px; min-width: 260px; font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; height: 100vh; overflow: auto; }
+      aside.sidebar { position: fixed; top: 0; left: -280px; height: 100%; width: 280px; box-shadow: var(--shadow-lg); transition: var(--transition); }
+      aside.sidebar.mobile-open { left: 0; }
+      .mobile-menu-btn { display: inline-block; }
+      main.content-area { width: 100%; height: 100vh; overflow-y: auto; }
+      header.navbar { padding: 0 16px; height: 60px; }
+      .view-container { padding: 16px; }
+      .form-row { grid-template-columns: 1fr; gap: 14px; }
+      .header-right select { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="sidebar" id="appSidebar">
+    <div class="brand">
+      <i class="fa-solid fa-share-nodes"></i>
+      <h2>ស្រង់ទិន្នន័យ Social Media</h2>
+    </div>
+    <ul class="nav-menu">
+      <li class="nav-item"><a href="#dashboard" class="nav-link active" data-view="dashboard"><i class="fa-solid fa-chart-pie"></i> ផ្ទាំងព័ត៌មានដើម</a></li>
+      <li class="nav-item"><a href="#members" class="nav-link" data-view="members"><i class="fa-solid fa-users-line"></i> ក្រុមការងារ & គណនី</a></li>
+      <li class="nav-item"><a href="#posts" class="nav-link" data-view="posts"><i class="fa-solid fa-pen-to-square"></i> ការបង្ហោះសារ</a></li>
+      <li class="nav-item"><a href="#reports" class="nav-link" data-view="reports"><i class="fa-solid fa-file-invoice"></i> របាយការណ៍ប្រចាំថ្ងៃ</a></li>
+      <li class="nav-item"><a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> ការវិភាគ</a></li>
+      <li class="nav-item"><a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gears"></i> ការកំណត់</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="content-area">
+    <header class="navbar">
+      <div class="header-left">
+        <button class="mobile-menu-btn" onclick="System.toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+        <div class="clock-display" id="liveClock">
+          <i class="fa-regular fa-clock"></i> <span id="clockTime">08:00:00 AM</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <select class="form-control" id="themeSelector" onchange="System.setTheme(this.value)" style="width: auto;">
+          <option value="emerald">Emerald</option>
+          <option value="dark">Dark</option>
+          <option value="cyberpunk">Cyberpunk</option>
+        </select>
+        <button class="btn btn-primary" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> <span>ផុសថ្មី</span></button>
+      </div>
+    </header>
+
+    <div class="view-container">
+
+      <!-- 1. DASHBOARD VIEW -->
+      <section id="dashboard" class="view-section active">
+        <div class="dashboard-grid">
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #3b82f6;"><i class="fa-solid fa-file-lines"></i></div>
+            <div class="stat-info">
+              <h4>សរុបថ្ងៃនេះ</h4>
+              <h2 id="dashTotalPosts">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #1877f2;"><i class="fa-brands fa-facebook"></i></div>
+            <div class="stat-info">
+              <h4>Facebook</h4>
+              <h2 id="dashFBPosts">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #000000;"><i class="fa-brands fa-tiktok"></i></div>
+            <div class="stat-info">
+              <h4>Tiktok</h4>
+              <h2 id="dashTTPosts">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #10b981;"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-info">
+              <h4>សមាជិក</h4>
+              <h2 id="dashActiveStaff">0</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <div style="padding: 14px 16px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 0.9rem;">
+            សារបង្ហោះថ្មីៗថ្ងៃនេះ
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ឈ្មោះ</th>
+                <th>Platform</th>
+                <th>ប្រភេទ</th>
+                <th>ប្រធានបទ</th>
+                <th>តំណភ្ជាប់</th>
+                <th>ម៉ោង</th>
+              </tr>
+            </thead>
+            <tbody id="dashRecentTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2. TEAM MEMBER & SOCIAL ACCOUNTS VIEW -->
+      <section id="members" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 1.1rem;">បញ្ជីឈ្មោះក្រុមការងារ និងគណនី Social Media</h3>
+          <button class="btn btn-primary" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>អត្តលេខ / ឈ្មោះ</th>
+                <th>តួនាទី</th>
+                <th>Facebook Account / Page</th>
+                <th>Tiktok Account</th>
+                <th>សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="memberTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 3. POST TRACKING VIEW -->
+      <section id="posts" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 1.1rem;">ការបង្ហោះសារប្រចាំថ្ងៃ</h3>
+          <button class="btn btn-primary" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូល</button>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ថ្ងៃខែ</th>
+                <th>ឈ្មោះ</th>
+                <th>Platform</th>
+                <th>ប្រភេទ</th>
+                <th>ចំណងជើង</th>
+                <th>Link</th>
+                <th>សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="postTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. KHMER DAILY REPORT VIEW -->
+      <section id="reports" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.1rem;">របាយការណ៍សង្ខេប</h3>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-outline" onclick="ReportModule.copyText()"><i class="fa-solid fa-copy"></i> ចម្លង</button>
+            <button class="btn btn-primary" onclick="ReportModule.exportExcel()"><i class="fa-solid fa-file-excel"></i> Excel</button>
+          </div>
+        </div>
+        <div class="report-paper" id="khmerReportPaper"></div>
+      </section>
+
+      <!-- 5. ANALYTICS VIEW -->
+      <section id="analytics" class="view-section">
+        <div class="form-row">
+          <div class="stat-card" style="height: 320px; display: block;">
+            <canvas id="platformChart"></canvas>
+          </div>
+          <div class="stat-card" style="height: 320px; display: block;">
+            <canvas id="memberChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. SETTINGS VIEW -->
+      <section id="settings" class="view-section">
+        <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 20px;">
+          <h3>ការកំណត់ប្រព័ន្ធ និងបម្រុងទុកទិន្នន័យ (Backup & Restore)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">ទិន្នន័យត្រូវបានរក្សាទុកដោយស្វ័យប្រវត្តិក្នុង IndexedDB និងភ្ជាប់ជាមួយឯកសារ JSON[cite: 1]។</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="BackupModule.exportJSON()"><i class="fa-solid fa-download"></i> ទាញយកទិន្នន័យ (Export JSON)</button>
+            <label class="btn btn-outline" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+              <i class="fa-solid fa-upload"></i> បញ្ចូលទិន្នន័យ (Import JSON)
+              <input type="file" id="importFile" accept=".json" style="display: none;" onchange="BackupModule.importJSON(event)">
+            </label>
+          </div>
+        </div>
+
+        <!-- AUTO SYNC CONFIG SECTION -->
+        <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px;">
+          <h3><i class="fa-solid fa-rotate" style="color: var(--primary);"></i> ការអាប់ដេតទិន្នន័យ JSON ស្វ័យប្រវត្តិ (Auto-Update JSON)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">ប្រព័ន្ធធ្វើការទាញយកទិន្នន័យស្វ័យប្រវត្តិតាមឯកសារ <code>SocialMedia_Backup.json</code> រៀងរាល់ ១៥ វិនាទី[cite: 1]៖</p>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; align-items: center;">
+            <input type="text" class="form-control" id="autoJsonPath" value="SocialMedia_Backup.json" style="max-width: 300px;" placeholder="ផ្លូវឯកសារ JSON">
+            <button class="btn btn-primary" onclick="BackupModule.manualTriggerAutoUpdate()"><i class="fa-solid fa-sync"></i> អាប់ដេតឥឡូវនេះ</button>
+            <span id="autoUpdateStatus" style="font-size: 0.8rem; color: var(--text-secondary);">ស្ថានភាព៖ កំពុងដំណើរការស្វ័យប្រវត្តិ[cite: 1]</span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL: ADD / EDIT MEMBER & SOCIAL ACCOUNTS -->
+  <div class="modal-overlay" id="memberModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="memberModalTitle" style="font-size: 1rem;">បន្ថែមបុគ្គលិក និងគណនី Social</h3>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="MemberApp.closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="memberForm">
+          <input type="hidden" id="memberId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>អត្តលេខ (Staff ID)</label>
+              <input type="text" class="form-control" id="memCode" placeholder="STF-001" required>
+            </div>
+            <div class="form-group">
+              <label>ឈ្មោះពេញ</label>
+              <input type="text" class="form-control" id="memName" placeholder="ចាន់ ដារ៉ា" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>តួនាទី / ផ្នែក</label>
+              <input type="text" class="form-control" id="memRole" placeholder="Content Creator" required>
+            </div>
+            <div class="form-group">
+              <label>លេខទូរស័ព្ទ</label>
+              <input type="text" class="form-control" id="memPhone" placeholder="012345678">
+            </div>
+          </div>
+          <hr style="border: 0; border-top: 1px solid var(--border); margin: 14px 0;">
+          <div class="form-group">
+            <label><i class="fa-brands fa-facebook" style="color: #1877f2;"></i> តំណភ្ជាប់គណនី Facebook / Page</label>
+            <input type="url" class="form-control" id="memFb" placeholder="https://facebook.com/username">
+          </div>
+          <div class="form-group">
+            <label><i class="fa-brands fa-tiktok" style="color: #000;"></i> តំណភ្ជាប់គណនី Tiktok</label>
+            <input type="url" class="form-control" id="memTt" placeholder="https://tiktok.com/@username">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="MemberApp.closeModal()">បោះបង់</button>
+        <button class="btn btn-primary" onclick="MemberApp.save()">រក្សាទុក</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADD / EDIT POST -->
+  <div class="modal-overlay" id="postModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="postModalTitle" style="font-size: 1rem;">បញ្ចូលការបង្ហោះសារ</h3>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="PostApp.closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="postForm">
+          <input type="hidden" id="postId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>ឈ្មោះបុគ្គលិក</label>
+              <select class="form-control" id="postMemberSelect" required></select>
+            </div>
+            <div class="form-group">
+              <label>Platform</label>
+              <select class="form-control" id="postPlatform" required>
+                <option value="Facebook">Facebook</option>
+                <option value="Tiktok">Tiktok</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ប្រភេទនៃការបង្ហោះ (Post Type)</label>
+              <select class="form-control" id="postType" required>
+                <option value="រូបភាព">រូបភាព (Image)</option>
+                <option value="វីដេអូ">វីដេអូ (Video)</option>
+                <option value="វីដេអូនិងរូបភាព">វីដេអូ និង រូបភាព (Video & Image)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>ថ្ងៃខែ</label>
+              <input type="date" class="form-control" id="postDate" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ម៉ោង</label>
+              <input type="time" class="form-control" id="postTime" required>
+            </div>
+            <div class="form-group">
+              <label>ចំណងជើងសារ (Caption)</label>
+              <input type="text" class="form-control" id="postTitle" placeholder="ប្រធានបទ..." required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>តំណភ្ជាប់ (URL Link)</label>
+            <input type="url" class="form-control" id="postLink" placeholder="https://..." required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="PostApp.closeModal()">បោះបង់</button>
+        <button class="btn btn-primary" onclick="PostApp.save()">រក្សាទុក</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastBox"></div>
+
+  <script>
+    const DB_NAME = 'SocialMediaAccountDB';
+    const DB_VERSION = 1;
+
+    class Database {
+      static async getStore() {
+        return new Promise((resolve) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains('members')) db.createObjectStore('members', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('posts')) db.createObjectStore('posts', { keyPath: 'id' });
+          };
+          req.onsuccess = (e) => resolve(e.target.result);
+        });
+      }
+
+      static async getAll(storeName) {
+        const db = await this.getStore();
+        return new Promise((resolve) => {
+          const tx = db.transaction(storeName, 'readonly');
+          const store = tx.objectStore(storeName);
+          const req = store.getAll();
+          req.onsuccess = () => resolve(req.result || []);
+        });
+      }
+
+      static async save(storeName, item) {
+        const db = await this.getStore();
+        return new Promise(async (resolve) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          store.put(item);
+          tx.oncomplete = async () => {
+            await BackupModule.triggerAutoBackupToFile();
+            resolve(true);
+          };
+        });
+      }
+
+      static async delete(storeName, id) {
+        const db = await this.getStore();
+        return new Promise(async (resolve) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          store.delete(id);
+          tx.oncomplete = async () => {
+            await BackupModule.triggerAutoBackupToFile();
+            resolve(true);
+          };
+        });
+      }
+    }
+
+    const State = { members: [], posts: [] };
+
+    class System {
+      static async init() {
+        this.updateClock();
+        setInterval(() => this.updateClock(), 1000);
+        this.setupNavigation();
+
+        // ធ្វើការហៅទិន្នន័យពី SocialMedia_Backup.json មកចាប់ផ្ដើមដំបូង
+        await BackupModule.autoFetchJSON();
+        setInterval(() => BackupModule.autoFetchJSON(), 15000);
+      }
+
+      static updateClock() {
+        const now = new Date();
+        document.getElementById('clockTime').innerText = now.toLocaleTimeString('en-US');
+      }
+
+      static toggleSidebar() {
+        document.getElementById('appSidebar').classList.toggle('mobile-open');
+      }
+
+      static setupNavigation() {
+        document.querySelectorAll('.nav-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            
+            link.classList.add('active');
+            const targetView = link.getAttribute('data-view');
+            document.getElementById(targetView).classList.add('active');
+
+            if (window.innerWidth <= 768) {
+              document.getElementById('appSidebar').classList.remove('mobile-open');
+            }
+
+            if(targetView === 'reports') ReportModule.renderKhmerReport();
+            if(targetView === 'analytics') AnalyticsModule.render();
+          });
+        });
+      }
+
+      static setTheme(themeName) {
+        document.documentElement.setAttribute('data-theme', themeName);
+        this.toast('បានប្តូរ Theme: ' + themeName);
+      }
+
+      static toast(msg) {
+        const box = document.getElementById('toastBox');
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.innerHTML = `<i class="fa-solid fa-circle-check" style="color: var(--primary);"></i> <span>${msg}</span>`;
+        box.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+    }
+
+    class MemberApp {
+      static async render() {
+        State.members = await Database.getAll('members');
+        const tbody = document.getElementById('memberTableBody');
+        const select = document.getElementById('postMemberSelect');
+        if(!tbody || !select) return;
+        tbody.innerHTML = '';
+        select.innerHTML = '';
+
+        if (State.members.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យបុគ្គលិក</td></tr>`;
+          select.innerHTML = `<option value="">-- គ្មានទិន្នន័យ --</option>`;
+          return;
+        }
+
+        State.members.forEach(m => {
+          const fbLink = m.fb ? `<a href="${m.fb}" target="_blank" class="badge-fb"><i class="fa-brands fa-facebook"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
+          const ttLink = m.tt ? `<a href="${m.tt}" target="_blank" class="badge-tt"><i class="fa-brands fa-tiktok"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${m.code}</strong><br><span style="color: var(--text-secondary);">${m.name}</span></td>
+            <td>${m.role}</td>
+            <td>${fbLink}</td>
+            <td>${ttLink}</td>
+            <td>
+              <button class="btn btn-outline" style="padding: 2px 6px;" onclick="MemberApp.openModal('${m.id}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-danger" style="padding: 2px 6px;" onclick="MemberApp.delete('${m.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+
+          const opt = document.createElement('option');
+          opt.value = m.name;
+          opt.textContent = `${m.name} (${m.role})`;
+          select.appendChild(opt);
+        });
+        DashboardModule.render();
+      }
+
+      static openModal(id = null) {
+        document.getElementById('memberForm').reset();
+        document.getElementById('memberId').value = '';
+        document.getElementById('memberModalTitle').innerText = 'បន្ថែមបុគ្គលិក និងគណនី Social';
+
+        if (id) {
+          const m = State.members.find(x => x.id === id);
+          if (m) {
+            document.getElementById('memberId').value = m.id;
+            document.getElementById('memCode').value = m.code;
+            document.getElementById('memName').value = m.name;
+            document.getElementById('memRole').value = m.role;
+            document.getElementById('memPhone').value = m.phone || '';
+            document.getElementById('memFb').value = m.fb || '';
+            document.getElementById('memTt').value = m.tt || '';
+            document.getElementById('memberModalTitle').innerText = 'កែប្រែព័ត៌មានបុគ្គលិក';
+          }
+        }
+        document.getElementById('memberModal').classList.add('active');
+      }
+
+      static closeModal() {
+        document.getElementById('memberModal').classList.remove('active');
+      }
+
+      static async save() {
+        const id = document.getElementById('memberId').value || 'MEM-' + Date.now();
+        const code = document.getElementById('memCode').value;
+        const name = document.getElementById('memName').value;
+        const role = document.getElementById('memRole').value;
+        const phone = document.getElementById('memPhone').value;
+        const fb = document.getElementById('memFb').value;
+        const tt = document.getElementById('memTt').value;
+
+        if (!code || !name || !role) {
+          System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
+          return;
+        }
+
+        await Database.save('members', { id, code, name, role, phone, fb, tt });
+        System.toast('រក្សាទុកបានជោគជ័យ!');
+        this.closeModal();
+        this.render();
+      }
+
+      static async delete(id) {
+        if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
+          await Database.delete('members', id);
+          System.toast('បានលុបជោគជ័យ');
+          this.render();
+        }
+      }
+    }
+
+    class PostApp {
+      static async render() {
+        State.posts = await Database.getAll('posts');
+        const tbody = document.getElementById('postTableBody');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+
+        if (State.posts.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យការបង្ហោះ</td></tr>`;
+          return;
+        }
+
+        State.posts.sort((a,b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time)).forEach(p => {
+          const badgeClass = p.platform === 'Facebook' ? 'badge-fb' : 'badge-tt';
+          const typeBadge = `<span class="badge-type">${p.postType || 'រូបភាព'}</span>`;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${p.date}</td>
+            <td><strong>${p.memberName}</strong></td>
+            <td><span class="${badgeClass}">${p.platform}</span></td>
+            <td>${typeBadge}</td>
+            <td>${p.title}</td>
+            <td><a href="${p.link}" target="_blank" style="color:var(--primary);">Link</a></td>
+            <td>
+              <button class="btn btn-outline" style="padding: 2px 6px;" onclick="PostApp.openModal('${p.id}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-danger" style="padding: 2px 6px;" onclick="PostApp.delete('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+        DashboardModule.render();
+      }
+
+      static openModal(id = null) {
+        document.getElementById('postForm').reset();
+        document.getElementById('postId').value = '';
+        document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('postTime').value = new Date().toTimeString().slice(0,5);
+        document.getElementById('postType').value = 'រូបភាព';
+        document.getElementById('postModalTitle').innerText = 'បញ្ចូលការបង្ហោះសារ';
+
+        if (id) {
+          const p = State.posts.find(x => x.id === id);
+          if (p) {
+            document.getElementById('postId').value = p.id;
+            document.getElementById('postMemberSelect').value = p.memberName;
+            document.getElementById('postPlatform').value = p.platform;
+            document.getElementById('postType').value = p.postType || 'រូបភាព';
+            document.getElementById('postDate').value = p.date;
+            document.getElementById('postTime').value = p.time;
+            document.getElementById('postTitle').value = p.title;
+            document.getElementById('postLink').value = p.link;
+            document.getElementById('postModalTitle').innerText = 'កែប្រែការបង្ហោះ';
+          }
+        }
+        document.getElementById('postModal').classList.add('active');
+      }
+
+      static closeModal() {
+        document.getElementById('postModal').classList.remove('active');
+      }
+
+      static async save() {
+        const id = document.getElementById('postId').value || 'POST-' + Date.now();
+        const memberName = document.getElementById('postMemberSelect').value;
+        const platform = document.getElementById('postPlatform').value;
+        const postType = document.getElementById('postType').value;
+        const date = document.getElementById('postDate').value;
+        const time = document.getElementById('postTime').value;
+        const title = document.getElementById('postTitle').value;
+        const link = document.getElementById('postLink').value;
+
+        if (!memberName || !date || !title || !link) {
+          System.toast('សូមបំពេញព័ត៌មានឱ្យបានគ្រប់គ្រាន់!');
+          return;
+        }
+
+        await Database.save('posts', { id, memberName, platform, postType, date, time, title, link });
+        System.toast('រក្សាទុកបានជោគជ័យ!');
+        this.closeModal();
+        this.render();
+      }
+
+      static async delete(id) {
+        if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
+          await Database.delete('posts', id);
+          System.toast('បានលុបជោគជ័យ');
+          this.render();
+        }
+      }
+    }
+
+    class DashboardModule {
+      static async render() {
+        State.posts = await Database.getAll('posts');
+        State.members = await Database.getAll('members');
+        const filterDate = document.getElementById('dashDateFilter')?.value || new Date().toISOString().split('T')[0];
+
+        const filteredPosts = State.posts.filter(p => p.date === filterDate);
+
+        const totalEl = document.getElementById('dashTotalPosts');
+        const fbEl = document.getElementById('dashFBPosts');
+        const ttEl = document.getElementById('dashTTPosts');
+        const staffEl = document.getElementById('dashActiveStaff');
+
+        if(totalEl) totalEl.innerText = filteredPosts.length;
+        if(fbEl) fbEl.innerText = filteredPosts.filter(p => p.platform === 'Facebook').length;
+        if(ttEl) ttEl.innerText = filteredPosts.filter(p => p.platform === 'Tiktok').length;
+        if(staffEl) staffEl.innerText = State.members.length;
+
+        const tbody = document.getElementById('dashRecentTable');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+
+        if (filteredPosts.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary);">គ្មានទិន្នន័យថ្ងៃនេះ[cite: 1]</td></tr>`;
+        } else {
+          filteredPosts.forEach(p => {
+            const badgeClass = p.platform === 'Facebook' ? 'badge-fb' : 'badge-tt';
+            const typeBadge = `<span class="badge-type">${p.postType || 'រូបភាព'}</span>`;
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+              <td><strong>${p.memberName}</strong></td>
+              <td><span class="${badgeClass}">${p.platform}</span></td>
+              <td>${typeBadge}</td>
+              <td>${p.title}</td>
+              <td><a href="${p.link}" target="_blank" style="color:var(--primary);">Link</a></td>
+              <td>${p.time}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      }
+    }
+
+    class ReportModule {
+      static renderKhmerReport() {
+        const reportDate = document.getElementById('reportDateFilter')?.value || new Date().toISOString().split('T')[0];
+        const dateParts = reportDate.split('-');
+        const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+
+        const dayPosts = State.posts.filter(p => p.date === reportDate);
+        const fbPosts = dayPosts.filter(p => p.platform === 'Facebook');
+        const ttPosts = dayPosts.filter(p => p.platform === 'Tiktok');
+
+        let reportStr = `📊 [របាយការណ៍ការបង្ហោះសារប្រចាំថ្ងៃ][cite: 1]\n`;
+        reportStr += `📅 កាលបរិច្ឆេទ ៖ ${formattedDate}\n`;
+        reportStr += `📌 សរុប ៖ ${dayPosts.length} ផុស\n`;
+        reportStr += `🔵 Facebook ៖ ${fbPosts.length} ផុស\n`;
+        reportStr += `⚫ Tiktok ៖ ${ttPosts.length} ផុស\n\n`;
+
+        reportStr += `📱 ១. Facebook (${fbPosts.length} ផុស)៖\n`;
+        if (fbPosts.length === 0) reportStr += `  (គ្មាន)\n`;
+        fbPosts.forEach((p, idx) => {
+          reportStr += `  ${idx + 1}. ${p.memberName} [${p.postType || 'រូបភាព'}] — "${p.title}"\n     🔗 ${p.link}\n`;
+        });
+
+        reportStr += `\n🎵 ២. Tiktok (${ttPosts.length} ផុស)៖\n`;
+        if (ttPosts.length === 0) reportStr += `  (គ្មាន)\n`;
+        ttPosts.forEach((p, idx) => {
+          reportStr += `  ${idx + 1}. ${p.memberName} [${p.postType || 'រូបភាព'}] — "${p.title}"\n     🔗 ${p.link}\n`;
+        });
+
+        reportStr += `\n[បញ្ចប់របាយការណ៍]`;
+        const paper = document.getElementById('khmerReportPaper');
+        if(paper) paper.textContent = reportStr;
+      }
+
+      static copyText() {
+        const text = document.getElementById('khmerReportPaper').textContent;
+        navigator.clipboard.writeText(text);
+        System.toast('បានចម្លងរបាយការណ៍រួចរាល់!');
+      }
+
+      static exportExcel() {
+        const reportDate = document.getElementById('reportDateFilter')?.value || new Date().toISOString().split('T')[0];
+        const data = State.posts.filter(p => p.date === reportDate);
+        if (data.length === 0) {
+          System.toast('គ្មានទិន្នន័យសម្រាប់ Export ទេ!');
+          return;
+        }
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "SocialPosts");
+        XLSX.writeFile(wb, `Social_Report_${reportDate}.xlsx`);
+        System.toast('បានទាញយកជា Excel រួចរាល់');
+      }
+    }
+
+    class AnalyticsModule {
+      static render() {
+        const ctx1 = document.getElementById('platformChart')?.getContext('2d');
+        const ctx2 = document.getElementById('memberChart')?.getContext('2d');
+        if(!ctx1 || !ctx2) return;
+
+        if (window.myChart1) window.myChart1.destroy();
+        if (window.myChart2) window.myChart2.destroy();
+
+        window.myChart1 = new Chart(ctx1, {
+          type: 'doughnut',
+          data: {
+            labels: ['Facebook', 'Tiktok'],
+            datasets: [{
+              data: [
+                State.posts.filter(p => p.platform === 'Facebook').length,
+                State.posts.filter(p => p.platform === 'Tiktok').length
+              ],
+              backgroundColor: ['#1877f2', '#000000']
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+
+        const memberCounts = {};
+        State.posts.forEach(p => {
+          memberCounts[p.memberName] = (memberCounts[p.memberName] || 0) + 1;
+        });
+
+        window.myChart2 = new Chart(ctx2, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(memberCounts).length ? Object.keys(memberCounts) : ['គ្មាន'],
+            datasets: [{
+              label: 'ចំនួនផុសតាមបុគ្គលិក',
+              data: Object.values(memberCounts).length ? Object.values(memberCounts) : [0],
+              backgroundColor: '#059669'
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false }
+        });
+      }
+    }
+
+    class BackupModule {
+      static async exportJSON() {
+        const members = await Database.getAll('members');
+        const posts = await Database.getAll('posts');
+        const backupData = {
+          version: 1,
+          exportDate: new Date().toISOString(),
+          members: members,
+          posts: posts
+        };
+
+        const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `SocialMedia_Backup.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        System.toast('បានទាញយកទិន្នន័យ (Export JSON) ដោយជោគជ័យ!');
+      }
+
+      static async importJSON(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = async (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (!data.members || !data.posts) {
+              throw new Error('Invalid format');
+            }
+
+            for (const m of data.members) {
+              await Database.save('members', m);
+            }
+            for (const p of data.posts) {
+              await Database.save('posts', p);
+            }
+
+            System.toast('បានបញ្ចូលទិន្នន័យ (Import JSON) រួចរាល់!');
+            await MemberApp.render();
+            await PostApp.render();
+          } catch (err) {
+            System.toast('ឯកសារ JSON មិនត្រឹមត្រូវ ឬខូចទ្រង់ទ្រាយ!');
+          }
+        };
+        reader.readAsText(file);
+        event.target.value = '';
+      }
+
+      // បង្កើតកូដទាញយកជា file ស្វ័យប្រវត្តិដើម្បីអាប់ដេត SocialMedia_Backup.json ក្នុងថតរបស់អ្នក
+      static async triggerAutoBackupToFile() {
+        try {
+          const members = await Database.getAll('members');
+          const posts = await Database.getAll('posts');
+          const backupData = {
+            version: 1,
+            exportDate: new Date().toISOString(),
+            members: members,
+            posts: posts
+          };
+
+          const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'SocialMedia_Backup.json';
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        } catch (e) {
+          console.log('Auto backup trigger error:', e);
+        }
+      }
+
+      // អានទិន្នន័យពី SocialMedia_Backup.json ចូលប្រព័ន្ធវិញស្វ័យប្រវត្តិ
+      static async autoFetchJSON() {
+        const jsonPath = document.getElementById('autoJsonPath')?.value || 'SocialMedia_Backup.json';
+        const statusEl = document.getElementById('autoUpdateStatus');
+        
+        try {
+          const response = await fetch(jsonPath, { cache: 'no-store' });
+          if (!response.ok) return;
+          const data = await response.json();
+          
+          if (data && data.members && data.posts) {
+            let updated = false;
+            for (const m of data.members) {
+              await Database.saveSilent('members', m);
+              updated = true;
+            }
+            for (const p of data.posts) {
+              await Database.saveSilent('posts', p);
+              updated = true;
+            }
+
+            if (updated) {
+              await MemberApp.render();
+              await PostApp.render();
+              if (statusEl) statusEl.innerText = `ស្ថានភាព៖ បានអាប់ដេតចុងក្រោយម៉ោង ${new Date().toLocaleTimeString()}`;
+            }
+          }
+        } catch (err) {}
+      }
+
+      static async manualTriggerAutoUpdate() {
+        const jsonPath = document.getElementById('autoJsonPath').value;
+        try {
+          const response = await fetch(jsonPath, { cache: 'no-store' });
+          if (!response.ok) throw new Error('File not found');
+          const data = await response.json();
+
+          if (!data.members || !data.posts) throw new Error('Invalid structure');
+
+          for (const m of data.members) await Database.saveSilent('members', m);
+          for (const p of data.posts) await Database.saveSilent('posts', p);
+
+          await MemberApp.render();
+          await PostApp.render();
+          System.toast('អាប់ដេតទិន្នន័យពី JSON បានសម្រេច!');
+        } catch (err) {
+          System.toast('មានបញ្ហា៖ រកមិនឃើញឯកសារ JSON ឬមានបញ្ហា CORS (សូមប្រើ Local Server)');
+        }
+      }
+    }
+
+    // បន្ថែមមុខងារ Database Save បែបស្ងៀមស្ងាត់ (មិនកោះហៅ trigger auto-backup វិញការពារ infinite loop)
+    Database.saveSilent = async function(storeName, item) {
+      const db = await this.getStore();
+      return new Promise((resolve) => {
+        const tx = db.transaction(storeName, 'readwrite');
+        const store = tx.objectStore(storeName);
+        store.put(item);
+        tx.oncomplete = () => resolve(true);
+      });
+    };
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await System.init();
+      await MemberApp.render();
+      await PostApp.render();
+      injectUIUpdates();
+    });
+
+    function injectUIUpdates() {
+      const dashHeader = document.querySelector('#dashboard .dashboard-grid');
+      if (dashHeader && !document.getElementById('dashDateFilter')) {
+        const dateFilterDiv = document.createElement('div');
+        dateFilterDiv.style.cssText = "display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;";
+        dateFilterDiv.innerHTML = `
+          <h3 style="font-size: 1.1rem;">ផ្ទាំងព័ត៌មានសង្ខេប</h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">កាលបរិច្ឆេទ៖</label>
+            <input type="date" class="form-control" id="dashDateFilter" value="${new Date().toISOString().split('T')[0]}" onchange="DashboardModule.render()" style="width: auto;">
+          </div>
+        `;
+        dashHeader.parentNode.insertBefore(dateFilterDiv, dashHeader);
+      }
+
+      const reportHeader = document.querySelector('#reports div');
+      if (reportHeader && !document.getElementById('reportDateFilter')) {
+        const datePickerDiv = document.createElement('div');
+        datePickerDiv.style.cssText = "display: flex; align-items: center; gap: 8px; margin-bottom: 8px;";
+        datePickerDiv.innerHTML = `
+          <label style="font-weight: 600; font-size: 0.85rem;">ថ្ងៃ៖</label>
+          <input type="date" class="form-control" id="reportDateFilter" value="${new Date().toISOString().split('T')[0]}" onchange="ReportModule.renderKhmerReport()" style="width: auto;">
+        `;
+        reportHeader.insertBefore(datePickerDiv, reportHeader.firstChild);
+      }
+    }
+  </script>
+</body>
+</html>
