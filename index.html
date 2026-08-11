@@ -304,7 +304,14 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;">បញ្ជីឈ្មោះក្រុមការងារ និងគណនី Social Media</h3>
           <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-            <input type="text" class="form-control" id="memberSearchInput" placeholder="🔍 ស្វែងរកឈ្មោះ ឬអត្តលេខ..." oninput="MemberApp.render()" style="width: 220px; padding: 7px 12px; font-size: 0.85rem;">
+            <input type="text" class="form-control" id="memberSearchInput" placeholder="🔍 ស្វែងរកឈ្មោះ ឬអត្តលេខ..." oninput="MemberApp.render()" style="width: 200px; padding: 7px 12px; font-size: 0.85rem;">
+            
+            <select class="form-control" id="memberSortSelect" onchange="MemberApp.render()" style="width: auto; padding: 7px 10px; font-size: 0.85rem;">
+              <option value="code-asc">អត្តលេខ (001 -> xxx)</option>
+              <option value="name-asc">ឈ្មោះ (ក-អ)</option>
+              <option value="role-asc">តួនាទី</option>
+            </select>
+
             <button class="btn btn-primary admin-only" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
           </div>
         </div>
@@ -417,9 +424,17 @@
 
       <!-- 4. POST TRACKING VIEW -->
       <section id="posts" class="view-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;">ការបង្ហោះសារប្រចាំថ្ងៃ</h3>
-          <button class="btn btn-primary admin-only" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូល</button>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <select class="form-control" id="postSortSelect" onchange="PostApp.render()" style="width: auto; padding: 7px 10px; font-size: 0.85rem;">
+              <option value="date-desc">ថ្ងៃខែ (ថ្មី -> ចាស់)</option>
+              <option value="date-asc">ថ្ងៃខែ (ចាស់ -> ថ្មី)</option>
+              <option value="platform">Platform</option>
+              <option value="name">ឈ្មោះបុគ្គលិក</option>
+            </select>
+            <button class="btn btn-primary admin-only" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូល</button>
+          </div>
         </div>
         <div class="table-container">
           <table>
@@ -565,8 +580,8 @@
           <input type="hidden" id="memberId">
           <div class="form-row">
             <div class="form-group">
-              <label>អត្តលេខ (Staff ID)</label>
-              <input type="text" class="form-control" id="memCode" placeholder="STF-001" required>
+              <label>អត្តលេខ (Staff ID - 001 to xxx)</label>
+              <input type="text" class="form-control" id="memCode" placeholder="001" required>
             </div>
             <div class="form-group">
               <label>ឈ្មោះពេញ</label>
@@ -831,6 +846,8 @@
       static async render() {
         State.members = await Database.getAll('members');
         const searchVal = document.getElementById('memberSearchInput')?.value.toLowerCase().trim() || '';
+        const sortBy = document.getElementById('memberSortSelect')?.value || 'code-asc';
+        
         const tbody = document.getElementById('memberTableBody');
         const select = document.getElementById('postMemberSelect');
         const empSelect = document.getElementById('empDetailSelect');
@@ -839,12 +856,23 @@
         select.innerHTML = '';
         if(empSelect) empSelect.innerHTML = '';
 
-        const filteredMembers = State.members.filter(m => {
+        let filteredMembers = State.members.filter(m => {
           if (!searchVal) return true;
           return m.name.toLowerCase().includes(searchVal) || m.code.toLowerCase().includes(searchVal) || m.role.toLowerCase().includes(searchVal);
         });
 
-        State.members.forEach(m => {
+        // Sorting logic for members explicitly from 001 to xxx numerically and alphabetically
+        filteredMembers.sort((a, b) => {
+          if (sortBy === 'code-asc') return a.code.localeCompare(b.code, undefined, {numeric: true});
+          if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
+          if (sortBy === 'role-asc') return a.role.localeCompare(b.role);
+          return 0;
+        });
+
+        // Always sort all members by code (001 -> xxx) for dropdowns
+        const sortedMembersForDropdown = [...State.members].sort((a, b) => a.code.localeCompare(b.code, undefined, {numeric: true}));
+
+        sortedMembersForDropdown.forEach(m => {
           const opt = document.createElement('option');
           opt.value = m.name;
           opt.textContent = `${m.name} (${m.role})`;
@@ -910,6 +938,11 @@
             document.getElementById('memTg').value = m.tg || '';
             document.getElementById('memberModalTitle').innerText = 'កែប្រែព័ត៌មានបុគ្គលិក';
           }
+        } else {
+          // Auto generate next code sequentially (001, 002, etc.)
+          const nextNum = State.members.length + 1;
+          const formattedCode = String(nextNum).padStart(3, '0');
+          document.getElementById('memCode').value = formattedCode;
         }
         document.getElementById('memberModal').classList.add('active');
       }
@@ -921,13 +954,13 @@
       static async save() {
         if (System.currentMode === 'viewer') return;
         const id = document.getElementById('memberId').value || 'MEM-' + Date.now();
-        const code = document.getElementById('memCode').value;
-        const name = document.getElementById('memName').value;
-        const role = document.getElementById('memRole').value;
-        const phone = document.getElementById('memPhone').value;
-        const fb = document.getElementById('memFb').value;
-        const tt = document.getElementById('memTt').value;
-        const tg = document.getElementById('memTg').value;
+        const code = document.getElementById('memCode').value.trim();
+        const name = document.getElementById('memName').value.trim();
+        const role = document.getElementById('memRole').value.trim();
+        const phone = document.getElementById('memPhone').value.trim();
+        const fb = document.getElementById('memFb').value.trim();
+        const tt = document.getElementById('memTt').value.trim();
+        const tg = document.getElementById('memTg').value.trim();
 
         if (!code || !name || !role) {
           System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
@@ -1108,6 +1141,7 @@
     class PostApp {
       static async render() {
         State.posts = await Database.getAll('posts');
+        const sortBy = document.getElementById('postSortSelect')?.value || 'date-desc';
         const tbody = document.getElementById('postTableBody');
         if(!tbody) return;
         tbody.innerHTML = '';
@@ -1117,7 +1151,18 @@
           return;
         }
 
-        State.posts.sort((a,b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time)).forEach(p => {
+        State.posts.sort((a, b) => {
+          const dateTimeA = new Date(a.date + ' ' + (a.time || '00:00'));
+          const dateTimeB = new Date(b.date + ' ' + (b.time || '00:00'));
+
+          if (sortBy === 'date-desc') return dateTimeB - dateTimeA;
+          if (sortBy === 'date-asc') return dateTimeA - dateTimeB;
+          if (sortBy === 'platform') return a.platform.localeCompare(b.platform);
+          if (sortBy === 'name') return a.memberName.localeCompare(b.memberName);
+          return 0;
+        });
+
+        State.posts.forEach(p => {
           let badgeClass = 'badge-fb';
           if (p.platform === 'Tiktok') badgeClass = 'badge-tt';
           if (p.platform === 'Telegram') badgeClass = 'badge-tg';
