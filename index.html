@@ -96,7 +96,6 @@
     .badge-tg { background-color: #229ed9; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
     .badge-type { background-color: rgba(5, 150, 105, 0.12); color: var(--primary); padding: 3px 8px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border); }
     
-    /* Leaderboard Rank Badges */
     .rank-badge { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
     .rank-1 { background-color: #f59e0b; color: #fff; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4); }
     .rank-2 { background-color: #94a3b8; color: #fff; }
@@ -127,12 +126,10 @@
     .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: var(--bg-card); color: var(--text-primary); border-left: 5px solid var(--primary); padding: 12px 16px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px; min-width: 260px; font-size: 0.85rem; }
 
-    /* Admin vs View-Only Visibility Control */
     body.view-only .admin-only {
       display: none !important;
     }
 
-    /* Mobile Bottom Navigation Bar */
     .mobile-bottom-nav {
       display: none;
       position: fixed;
@@ -426,6 +423,7 @@
             <span id="autoUpdateStatus" style="font-size: 0.8rem; color: var(--text-secondary);">ស្ថានភាព៖ កំពុងដំណើរការស្វ័យប្រវត្តិ[cite: 1]</span>
           </div>
         </div>
+
         <div style="margin-top: 20px; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
           បង្កើតឡើងដោយ៖ នី ច័ន្ទតារា[cite: 1]
         </div>
@@ -642,7 +640,6 @@
           const store = tx.objectStore(storeName);
           store.put(item);
           tx.oncomplete = async () => {
-            await BackupModule.triggerAutoBackupToFile();
             resolve(true);
           };
         });
@@ -659,7 +656,6 @@
           const store = tx.objectStore(storeName);
           store.delete(id);
           tx.oncomplete = async () => {
-            await BackupModule.triggerAutoBackupToFile();
             resolve(true);
           };
         });
@@ -1263,32 +1259,6 @@
         };
         reader.readAsText(file);
         event.target.value = '';
-      }
-
-      static async triggerAutoBackupToFile() {
-        try {
-          const members = await Database.getAll('members');
-          const posts = await Database.getAll('posts');
-          const backupData = {
-            version: 1,
-            exportDate: new Date().toISOString(),
-            members: members,
-            posts: posts
-          };
-
-          const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = 'SocialMedia_Backup.json';
-          a.style.display = 'none';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          URL.revokeObjectURL(url);
-        } catch (e) {
-          console.log('Auto backup trigger error:', e);
-        }
       }
 
       static async autoFetchJSON() {
