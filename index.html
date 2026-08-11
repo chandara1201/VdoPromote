@@ -2,13 +2,13 @@
 <html lang="km" data-theme="emerald">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ប្រព័ន្ធស្រង់ទិន្នន័យការបង្ហោះ Social Media | Employee Social Accounts</title>
   
   <!-- Google Fonts for Khmer & English -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kantenbold&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -79,8 +79,6 @@
     .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-primary); }
     .btn-outline:hover { background: rgba(0,0,0,0.05); }
 
-    .mobile-menu-btn { display: none; background: transparent; border: none; font-size: 1.4rem; color: var(--text-primary); cursor: pointer; }
-
     .view-container { flex: 1; padding: 24px; overflow-y: auto; }
     .view-section { display: none; }
     .view-section.active { display: block; animation: fadeIn 0.3s ease-in-out; }
@@ -96,6 +94,13 @@
     .badge-fb { background-color: #1877f2; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
     .badge-tt { background-color: #000000; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; border: 1px solid #333; }
     .badge-type { background-color: rgba(5, 150, 105, 0.12); color: var(--primary); padding: 3px 8px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border); }
+    
+    /* Leaderboard Rank Badges */
+    .rank-badge { width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; }
+    .rank-1 { background-color: #f59e0b; color: #fff; box-shadow: 0 2px 6px rgba(245, 158, 11, 0.4); }
+    .rank-2 { background-color: #94a3b8; color: #fff; }
+    .rank-3 { background-color: #b45309; color: #fff; }
+    .rank-other { background-color: rgba(0,0,0,0.05); color: var(--text-secondary); }
 
     .table-container { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
     table { width: 100%; border-collapse: collapse; text-align: left; min-width: 650px; }
@@ -121,22 +126,76 @@
     .toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 3000; display: flex; flex-direction: column; gap: 10px; }
     .toast { background: var(--bg-card); color: var(--text-primary); border-left: 5px solid var(--primary); padding: 12px 16px; border-radius: var(--radius-sm); box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 10px; min-width: 260px; font-size: 0.85rem; }
 
+    /* Admin vs View-Only Visibility Control */
+    body.view-only .admin-only {
+      display: none !important;
+    }
+
+    /* Mobile Bottom Navigation Bar */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: var(--bg-card);
+      border-top: 1px solid var(--border);
+      z-index: 1500;
+      justify-content: space-around;
+      align-items: center;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+    }
+    .mobile-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.7rem;
+      font-weight: 500;
+      flex: 1;
+      height: 100%;
+      transition: var(--transition);
+    }
+    .mobile-nav-item i {
+      font-size: 1.2rem;
+      margin-bottom: 2px;
+    }
+    .mobile-nav-item.active {
+      color: var(--primary);
+    }
+
     @media (max-width: 768px) {
-      body { flex-direction: column; height: 100vh; overflow: auto; }
-      aside.sidebar { position: fixed; top: 0; left: -280px; height: 100%; width: 280px; box-shadow: var(--shadow-lg); transition: var(--transition); }
-      aside.sidebar.mobile-open { left: 0; }
-      .mobile-menu-btn { display: inline-block; }
-      main.content-area { width: 100%; height: 100vh; overflow-y: auto; }
-      header.navbar { padding: 0 16px; height: 60px; }
-      .view-container { padding: 16px; }
-      .form-row { grid-template-columns: 1fr; gap: 14px; }
-      .header-right select { display: none; }
+      body { flex-direction: column; height: 100vh; overflow: hidden; }
+      aside.sidebar { display: none !important; }
+      
+      .mobile-bottom-nav { display: flex; }
+      
+      main.content-area { width: 100%; height: calc(100vh - 60px); overflow-y: auto; padding-bottom: 70px; }
+      header.navbar { padding: 0 12px; height: 55px; }
+      .view-container { padding: 12px; }
+      .form-row { grid-template-columns: 1fr; gap: 10px; }
+      
+      .clock-display { display: none; }
+      
+      .btn { padding: 10px 14px; font-size: 0.9rem; }
+      .form-control { padding: 12px; font-size: 0.95rem; }
+      
+      .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+      .stat-card { padding: 12px; gap: 10px; }
+      .stat-icon { width: 38px; height: 38px; font-size: 1.1rem; }
+      .stat-info h2 { font-size: 1.2rem; }
+      
+      .modal-overlay { padding: 10px; align-items: flex-end; }
+      .modal-content { max-width: 100%; max-height: 85vh; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg); }
     }
   </style>
 </head>
 <body>
 
-  <!-- SIDEBAR NAVIGATION -->
+  <!-- SIDEBAR NAVIGATION (Desktop) -->
   <aside class="sidebar" id="appSidebar">
     <div class="brand">
       <i class="fa-solid fa-share-nodes"></i>
@@ -145,6 +204,7 @@
     <ul class="nav-menu">
       <li class="nav-item"><a href="#dashboard" class="nav-link active" data-view="dashboard"><i class="fa-solid fa-chart-pie"></i> ផ្ទាំងព័ត៌មានដើម</a></li>
       <li class="nav-item"><a href="#members" class="nav-link" data-view="members"><i class="fa-solid fa-users-line"></i> ក្រុមការងារ & គណនី</a></li>
+      <li class="nav-item"><a href="#leaderboard" class="nav-link" data-view="leaderboard"><i class="fa-solid fa-trophy"></i> ចំណាត់ថ្នាក់បុគ្គលិក</a></li>
       <li class="nav-item"><a href="#posts" class="nav-link" data-view="posts"><i class="fa-solid fa-pen-to-square"></i> ការបង្ហោះសារ</a></li>
       <li class="nav-item"><a href="#reports" class="nav-link" data-view="reports"><i class="fa-solid fa-file-invoice"></i> របាយការណ៍ប្រចាំថ្ងៃ</a></li>
       <li class="nav-item"><a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> ការវិភាគ</a></li>
@@ -156,18 +216,25 @@
   <main class="content-area">
     <header class="navbar">
       <div class="header-left">
-        <button class="mobile-menu-btn" onclick="System.toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+        <div style="font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; color: var(--primary);">
+          <i class="fa-solid fa-share-nodes"></i> <span id="mobileTopTitle">ផ្ទាំងដើម</span>
+        </div>
         <div class="clock-display" id="liveClock">
           <i class="fa-regular fa-clock"></i> <span id="clockTime">08:00:00 AM</span>
         </div>
       </div>
       <div class="header-right">
-        <select class="form-control" id="themeSelector" onchange="System.setTheme(this.value)" style="width: auto;">
+        <select class="form-control" id="modeSelector" onchange="System.handleModeChange(this.value)" style="width: auto; font-weight: 600; color: var(--primary); padding: 6px 10px; font-size: 0.8rem;">
+          <option value="viewer">👁️ View-Only</option>
+          <option value="admin">🔒 Admin</option>
+        </select>
+
+        <select class="form-control" id="themeSelector" onchange="System.setTheme(this.value)" style="width: auto; padding: 6px 10px; font-size: 0.8rem;">
           <option value="emerald">Emerald</option>
           <option value="dark">Dark</option>
           <option value="cyberpunk">Cyberpunk</option>
         </select>
-        <button class="btn btn-primary" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> <span>ផុសថ្មី</span></button>
+        <button class="btn btn-primary admin-only" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> <span style="display:none; @media(min-width:768px){display:inline;}">ផុសថ្មី</span></button>
       </div>
     </header>
 
@@ -230,7 +297,7 @@
       <section id="members" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <h3 style="font-size: 1.1rem;">បញ្ជីឈ្មោះក្រុមការងារ និងគណនី Social Media</h3>
-          <button class="btn btn-primary" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
+          <button class="btn btn-primary admin-only" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
         </div>
         <div class="table-container">
           <table>
@@ -240,7 +307,7 @@
                 <th>តួនាទី</th>
                 <th>Facebook Account / Page</th>
                 <th>Tiktok Account</th>
-                <th>សកម្មភាព</th>
+                <th class="admin-only">សកម្មភាព</th>
               </tr>
             </thead>
             <tbody id="memberTableBody"></tbody>
@@ -248,11 +315,41 @@
         </div>
       </section>
 
-      <!-- 3. POST TRACKING VIEW -->
+      <!-- 3. LEADERBOARD / RANKING VIEW -->
+      <section id="leaderboard" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> តារាងចំណាត់ថ្នាក់បុគ្គលិកឆ្នើម (Leaderboard)</h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">រយៈពេល៖</label>
+            <select class="form-control" id="rankPeriodFilter" onchange="LeaderboardModule.render()" style="width: auto;">
+              <option value="all">សរុបទាំងអស់ (All-Time)</option>
+              <option value="month">ខែនេះ (This Month)</option>
+              <option value="week">សប្តាហ៍នេះ (This Week)</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 80px; text-align: center;">ចំណាត់ថ្នាក់</th>
+                <th>ឈ្មោះបុគ្គលិក</th>
+                <th>តួនាទី</th>
+                <th style="text-align: center;">Facebook</th>
+                <th style="text-align: center;">Tiktok</th>
+                <th style="text-align: center; font-weight: 700; color: var(--primary);">សរុបការបង្ហោះ</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. POST TRACKING VIEW -->
       <section id="posts" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <h3 style="font-size: 1.1rem;">ការបង្ហោះសារប្រចាំថ្ងៃ</h3>
-          <button class="btn btn-primary" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូល</button>
+          <button class="btn btn-primary admin-only" onclick="PostApp.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូល</button>
         </div>
         <div class="table-container">
           <table>
@@ -264,7 +361,7 @@
                 <th>ប្រភេទ</th>
                 <th>ចំណងជើង</th>
                 <th>Link</th>
-                <th>សកម្មភាព</th>
+                <th class="admin-only">សកម្មភាព</th>
               </tr>
             </thead>
             <tbody id="postTableBody"></tbody>
@@ -272,7 +369,7 @@
         </div>
       </section>
 
-      <!-- 4. KHMER DAILY REPORT VIEW -->
+      <!-- 5. KHMER DAILY REPORT VIEW -->
       <section id="reports" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;">របាយការណ៍សង្ខេប</h3>
@@ -284,7 +381,7 @@
         <div class="report-paper" id="khmerReportPaper"></div>
       </section>
 
-      <!-- 5. ANALYTICS VIEW -->
+      <!-- 6. ANALYTICS VIEW -->
       <section id="analytics" class="view-section">
         <div class="form-row">
           <div class="stat-card" style="height: 320px; display: block;">
@@ -296,21 +393,20 @@
         </div>
       </section>
 
-      <!-- 6. SETTINGS VIEW -->
+      <!-- 7. SETTINGS VIEW -->
       <section id="settings" class="view-section">
         <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 20px;">
           <h3>ការកំណត់ប្រព័ន្ធ និងបម្រុងទុកទិន្នន័យ (Backup & Restore)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-secondary);">ទិន្នន័យត្រូវបានរក្សាទុកដោយស្វ័យប្រវត្តិក្នុង IndexedDB និងភ្ជាប់ជាមួយឯកសារ JSON[cite: 1]។</p>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">ទិន្នន័យត្រូវបានរក្សាទុកដោយស្វ័យប្រវត្តិក្នុង IndexedDB និងភ្ជាប់ជាមួយឯកសារ JSON[cite: 1]。</p>
           <div style="display: flex; gap: 10px; flex-wrap: wrap;">
             <button class="btn btn-primary" onclick="BackupModule.exportJSON()"><i class="fa-solid fa-download"></i> ទាញយកទិន្នន័យ (Export JSON)</button>
-            <label class="btn btn-outline" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
+            <label class="btn btn-outline admin-only" style="cursor: pointer; display: inline-flex; align-items: center; gap: 6px;">
               <i class="fa-solid fa-upload"></i> បញ្ចូលទិន្នន័យ (Import JSON)
               <input type="file" id="importFile" accept=".json" style="display: none;" onchange="BackupModule.importJSON(event)">
             </label>
           </div>
         </div>
 
-        <!-- AUTO SYNC CONFIG SECTION -->
         <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px;">
           <h3><i class="fa-solid fa-rotate" style="color: var(--primary);"></i> ការអាប់ដេតទិន្នន័យ JSON ស្វ័យប្រវត្តិ (Auto-Update JSON)</h3>
           <p style="font-size: 0.85rem; color: var(--text-secondary);">ប្រព័ន្ធធ្វើការទាញយកទិន្នន័យស្វ័យប្រវត្តិតាមឯកសារ <code>SocialMedia_Backup.json</code> រៀងរាល់ ១៥ វិនាទី[cite: 1]៖</p>
@@ -324,6 +420,60 @@
 
     </div>
   </main>
+
+  <!-- MOBILE BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav">
+    <a href="#dashboard" class="mobile-nav-item active" data-view="dashboard" onclick="System.switchMobileView('dashboard', 'ផ្ទាំងដើម')">
+      <i class="fa-solid fa-chart-pie"></i>
+      <span>ផ្ទាំងដើម</span>
+    </a>
+    <a href="#members" class="mobile-nav-item" data-view="members" onclick="System.switchMobileView('members', 'ក្រុមការងារ')">
+      <i class="fa-solid fa-users-line"></i>
+      <span>បុគ្គលិក</span>
+    </a>
+    <a href="#leaderboard" class="mobile-nav-item" data-view="leaderboard" onclick="System.switchMobileView('leaderboard', 'ចំណាត់ថ្នាក់')">
+      <i class="fa-solid fa-trophy"></i>
+      <span>ចំណាត់ថ្នាក់</span>
+    </a>
+    <a href="#posts" class="mobile-nav-item" data-view="posts" onclick="System.switchMobileView('posts', 'ការបង្ហោះ')">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <span>ការផុស</span>
+    </a>
+    <a href="#reports" class="mobile-nav-item" data-view="reports" onclick="System.switchMobileView('reports', 'របាយការណ៍')">
+      <i class="fa-solid fa-file-invoice"></i>
+      <span>រាយការណ៍</span>
+    </a>
+    <a href="#analytics" class="mobile-nav-item" data-view="analytics" onclick="System.switchMobileView('analytics', 'ការវិភាគ')">
+      <i class="fa-solid fa-chart-line"></i>
+      <span>វិភាគ</span>
+    </a>
+    <a href="#settings" class="mobile-nav-item" data-view="settings" onclick="System.switchMobileView('settings', 'ការកំណត់')">
+      <i class="fa-solid fa-gears"></i>
+      <span>កំណត់</span>
+    </a>
+  </nav>
+
+  <!-- MODAL: ADMIN LOGIN PASSWORD -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-content" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> បញ្ចូលលេខសម្ងាត់ Admin</h3>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="System.cancelAdminLogin()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="adminLoginForm" onsubmit="event.preventDefault(); System.verifyAdminPassword();">
+          <div class="form-group">
+            <label>លេខសម្ងាត់ (Password)</label>
+            <input type="password" class="form-control" id="adminPasswordInput" placeholder="បញ្ចូលលេខសម្ងាត់..." required autofocus>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="System.cancelAdminLogin()">បោះបង់</button>
+        <button class="btn btn-primary" onclick="System.verifyAdminPassword()">ចូលប្រព័ន្ធ</button>
+      </div>
+    </div>
+  </div>
 
   <!-- MODAL: ADD / EDIT MEMBER & SOCIAL ACCOUNTS -->
   <div class="modal-overlay" id="memberModal">
@@ -438,6 +588,7 @@
   <script>
     const DB_NAME = 'SocialMediaAccountDB';
     const DB_VERSION = 1;
+    const ADMIN_PASSWORD = 'admin123';
 
     class Database {
       static async getStore() {
@@ -463,6 +614,10 @@
       }
 
       static async save(storeName, item) {
+        if (System.currentMode === 'viewer') {
+          System.toast('🚫 មិនអាចកែប្រែទិន្នន័យបានទេ (ស្ថិតក្នុងໂหมด View-Only)');
+          return false;
+        }
         const db = await this.getStore();
         return new Promise(async (resolve) => {
           const tx = db.transaction(storeName, 'readwrite');
@@ -476,6 +631,10 @@
       }
 
       static async delete(storeName, id) {
+        if (System.currentMode === 'viewer') {
+          System.toast('🚫 មិនអាចលុបទិន្នន័យបានទេ (ស្ថិតក្នុងໂหมด View-Only)');
+          return false;
+        }
         const db = await this.getStore();
         return new Promise(async (resolve) => {
           const tx = db.transaction(storeName, 'readwrite');
@@ -492,14 +651,55 @@
     const State = { members: [], posts: [] };
 
     class System {
+      static currentMode = 'viewer';
+
       static async init() {
         this.updateClock();
         setInterval(() => this.updateClock(), 1000);
         this.setupNavigation();
 
-        // ធ្វើការហៅទិន្នន័យពី SocialMedia_Backup.json មកចាប់ផ្ដើមដំបូង
+        document.getElementById('modeSelector').value = 'viewer';
+        document.body.classList.add('view-only');
+
         await BackupModule.autoFetchJSON();
         setInterval(() => BackupModule.autoFetchJSON(), 15000);
+      }
+
+      static handleModeChange(mode) {
+        if (mode === 'admin') {
+          document.getElementById('adminPasswordInput').value = '';
+          document.getElementById('adminLoginModal').classList.add('active');
+        } else {
+          this.setMode('viewer');
+        }
+      }
+
+      static verifyAdminPassword() {
+        const inputVal = document.getElementById('adminPasswordInput').value;
+        if (inputVal === ADMIN_PASSWORD) {
+          document.getElementById('adminLoginModal').classList.remove('active');
+          this.setMode('admin');
+          this.toast('🔓 បានចូលកាន់ Admin Mode ដោយជោគជ័យ!');
+        } else {
+          this.toast('❌ លេខសម្ងាត់មិនត្រឹមត្រូវ!');
+        }
+      }
+
+      static cancelAdminLogin() {
+        document.getElementById('adminLoginModal').classList.remove('active');
+        document.getElementById('modeSelector').value = 'viewer';
+      }
+
+      static setMode(mode) {
+        this.currentMode = mode;
+        document.getElementById('modeSelector').value = mode;
+        if (mode === 'viewer') {
+          document.body.classList.add('view-only');
+          this.toast('បានប្តូរទៅកាន់ໂหมด View-Only (មើលតែប៉ុណ្ណោះ)');
+        } else {
+          document.body.classList.remove('view-only');
+          this.toast('បានប្តូរទៅកាន់ໂหมด Admin (ពេញលេញ)');
+        }
       }
 
       static updateClock() {
@@ -507,27 +707,25 @@
         document.getElementById('clockTime').innerText = now.toLocaleTimeString('en-US');
       }
 
-      static toggleSidebar() {
-        document.getElementById('appSidebar').classList.toggle('mobile-open');
+      static switchMobileView(targetView, titleText) {
+        document.querySelectorAll('.nav-link, .mobile-nav-item').forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+        
+        document.querySelectorAll(`[data-view="${targetView}"]`).forEach(el => el.classList.add('active'));
+        document.getElementById(targetView).classList.add('active');
+        document.getElementById('mobileTopTitle').innerText = titleText;
+
+        if(targetView === 'reports') ReportModule.renderKhmerReport();
+        if(targetView === 'analytics') AnalyticsModule.render();
+        if(targetView === 'leaderboard') LeaderboardModule.render();
       }
 
       static setupNavigation() {
         document.querySelectorAll('.nav-link').forEach(link => {
           link.addEventListener('click', (e) => {
             e.preventDefault();
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-            
-            link.classList.add('active');
             const targetView = link.getAttribute('data-view');
-            document.getElementById(targetView).classList.add('active');
-
-            if (window.innerWidth <= 768) {
-              document.getElementById('appSidebar').classList.remove('mobile-open');
-            }
-
-            if(targetView === 'reports') ReportModule.renderKhmerReport();
-            if(targetView === 'analytics') AnalyticsModule.render();
+            this.switchMobileView(targetView, link.textContent.trim());
           });
         });
       }
@@ -572,7 +770,7 @@
             <td>${m.role}</td>
             <td>${fbLink}</td>
             <td>${ttLink}</td>
-            <td>
+            <td class="admin-only">
               <button class="btn btn-outline" style="padding: 2px 6px;" onclick="MemberApp.openModal('${m.id}')"><i class="fa-solid fa-pen"></i></button>
               <button class="btn btn-danger" style="padding: 2px 6px;" onclick="MemberApp.delete('${m.id}')"><i class="fa-solid fa-trash"></i></button>
             </td>
@@ -585,9 +783,11 @@
           select.appendChild(opt);
         });
         DashboardModule.render();
+        LeaderboardModule.render();
       }
 
       static openModal(id = null) {
+        if (System.currentMode === 'viewer') return;
         document.getElementById('memberForm').reset();
         document.getElementById('memberId').value = '';
         document.getElementById('memberModalTitle').innerText = 'បន្ថែមបុគ្គលិក និងគណនី Social';
@@ -613,6 +813,7 @@
       }
 
       static async save() {
+        if (System.currentMode === 'viewer') return;
         const id = document.getElementById('memberId').value || 'MEM-' + Date.now();
         const code = document.getElementById('memCode').value;
         const name = document.getElementById('memName').value;
@@ -626,18 +827,107 @@
           return;
         }
 
-        await Database.save('members', { id, code, name, role, phone, fb, tt });
-        System.toast('រក្សាទុកបានជោគជ័យ!');
-        this.closeModal();
-        this.render();
+        const res = await Database.save('members', { id, code, name, role, phone, fb, tt });
+        if(res) {
+          System.toast('រក្សាទុកបានជោគជ័យ!');
+          this.closeModal();
+          this.render();
+        }
       }
 
       static async delete(id) {
+        if (System.currentMode === 'viewer') return;
         if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
-          await Database.delete('members', id);
-          System.toast('បានលុបជោគជ័យ');
-          this.render();
+          const res = await Database.delete('members', id);
+          if(res) {
+            System.toast('បានលុបជោគជ័យ');
+            this.render();
+          }
         }
+      }
+    }
+
+    class LeaderboardModule {
+      static async render() {
+        State.posts = await Database.getAll('posts');
+        State.members = await Database.getAll('members');
+        const period = document.getElementById('rankPeriodFilter')?.value || 'all';
+        const tbody = document.getElementById('leaderboardTableBody');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+
+        // Helper to check date filters
+        const checkPeriod = (dateStr) => {
+          if (period === 'all') return true;
+          const pDate = new Date(dateStr);
+          if (isNaN(pDate)) return false;
+
+          if (period === 'month') {
+            return pDate.getFullYear() === currentYear && pDate.getMonth() === currentMonth;
+          }
+          if (period === 'week') {
+            const firstDayOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            firstDayOfWeek.setHours(0,0,0,0);
+            return pDate >= firstDayOfWeek;
+          }
+          return true;
+        };
+
+        // Aggregate stats per member
+        const statsMap = {};
+        State.members.forEach(m => {
+          statsMap[m.name] = {
+            name: m.name,
+            role: m.role,
+            fb: 0,
+            tt: 0,
+            total: 0
+          };
+        });
+
+        State.posts.forEach(p => {
+          if (checkPeriod(p.date)) {
+            if (!statsMap[p.memberName]) {
+              statsMap[p.memberName] = { name: p.memberName, role: 'បុគ្គលិក', fb: 0, tt: 0, total: 0 };
+            }
+            if (p.platform === 'Facebook') {
+              statsMap[p.memberName].fb++;
+            } else if (p.platform === 'Tiktok') {
+              statsMap[p.memberName].tt++;
+            }
+            statsMap[p.memberName].total++;
+          }
+        });
+
+        const rankedList = Object.values(statsMap).sort((a, b) => b.total - a.total);
+
+        if (rankedList.length === 0 || rankedList.every(i => i.total === 0)) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 20px;">មិនទមានទិន្នន័យចំណាត់ថ្នាក់សម្រាប់រយៈពេលនេះទេ</td></tr>`;
+          return;
+        }
+
+        rankedList.forEach((item, index) => {
+          const rank = index + 1;
+          let rankClass = 'rank-other';
+          if (rank === 1) rankClass = 'rank-1';
+          else if (rank === 2) rankClass = 'rank-2';
+          else if (rank === 3) rankClass = 'rank-3';
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td style="text-align: center;"><span class="rank-badge ${rankClass}">${rank}</span></td>
+            <td><strong>${item.name}</strong></td>
+            <td><span style="color: var(--text-secondary);">${item.role}</span></td>
+            <td style="text-align: center;"><span class="badge-fb">${item.fb}</span></td>
+            <td style="text-align: center;"><span class="badge-tt">${item.tt}</span></td>
+            <td style="text-align: center; font-weight: 700; color: var(--primary); font-size: 1rem;">${item.total}</td>
+          `;
+          tbody.appendChild(tr);
+        });
       }
     }
 
@@ -664,7 +954,7 @@
             <td>${typeBadge}</td>
             <td>${p.title}</td>
             <td><a href="${p.link}" target="_blank" style="color:var(--primary);">Link</a></td>
-            <td>
+            <td class="admin-only">
               <button class="btn btn-outline" style="padding: 2px 6px;" onclick="PostApp.openModal('${p.id}')"><i class="fa-solid fa-pen"></i></button>
               <button class="btn btn-danger" style="padding: 2px 6px;" onclick="PostApp.delete('${p.id}')"><i class="fa-solid fa-trash"></i></button>
             </td>
@@ -672,9 +962,11 @@
           tbody.appendChild(tr);
         });
         DashboardModule.render();
+        LeaderboardModule.render();
       }
 
       static openModal(id = null) {
+        if (System.currentMode === 'viewer') return;
         document.getElementById('postForm').reset();
         document.getElementById('postId').value = '';
         document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
@@ -704,6 +996,7 @@
       }
 
       static async save() {
+        if (System.currentMode === 'viewer') return;
         const id = document.getElementById('postId').value || 'POST-' + Date.now();
         const memberName = document.getElementById('postMemberSelect').value;
         const platform = document.getElementById('postPlatform').value;
@@ -718,17 +1011,22 @@
           return;
         }
 
-        await Database.save('posts', { id, memberName, platform, postType, date, time, title, link });
-        System.toast('រក្សាទុកបានជោគជ័យ!');
-        this.closeModal();
-        this.render();
+        const res = await Database.save('posts', { id, memberName, platform, postType, date, time, title, link });
+        if(res) {
+          System.toast('រក្សាទុកបានជោគជ័យ!');
+          this.closeModal();
+          this.render();
+        }
       }
 
       static async delete(id) {
+        if (System.currentMode === 'viewer') return;
         if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
-          await Database.delete('posts', id);
-          System.toast('បានលុបជោគជ័យ');
-          this.render();
+          const res = await Database.delete('posts', id);
+          if(res) {
+            System.toast('បានលុបជោគជ័យ');
+            this.render();
+          }
         }
       }
     }
@@ -896,6 +1194,7 @@
       }
 
       static async importJSON(event) {
+        if (System.currentMode === 'viewer') return;
         const file = event.target.files[0];
         if (!file) return;
 
@@ -908,10 +1207,10 @@
             }
 
             for (const m of data.members) {
-              await Database.save('members', m);
+              await Database.saveSilent('members', m);
             }
             for (const p of data.posts) {
-              await Database.save('posts', p);
+              await Database.saveSilent('posts', p);
             }
 
             System.toast('បានបញ្ចូលទិន្នន័យ (Import JSON) រួចរាល់!');
@@ -925,7 +1224,6 @@
         event.target.value = '';
       }
 
-      // បង្កើតកូដទាញយកជា file ស្វ័យប្រវត្តិដើម្បីអាប់ដេត SocialMedia_Backup.json ក្នុងថតរបស់អ្នក
       static async triggerAutoBackupToFile() {
         try {
           const members = await Database.getAll('members');
@@ -952,7 +1250,6 @@
         }
       }
 
-      // អានទិន្នន័យពី SocialMedia_Backup.json ចូលប្រព័ន្ធវិញស្វ័យប្រវត្តិ
       static async autoFetchJSON() {
         const jsonPath = document.getElementById('autoJsonPath')?.value || 'SocialMedia_Backup.json';
         const statusEl = document.getElementById('autoUpdateStatus');
@@ -1003,7 +1300,6 @@
       }
     }
 
-    // បន្ថែមមុខងារ Database Save បែបស្ងៀមស្ងាត់ (មិនកោះហៅ trigger auto-backup វិញការពារ infinite loop)
     Database.saveSilent = async function(storeName, item) {
       const db = await this.getStore();
       return new Promise((resolve) => {
