@@ -202,6 +202,7 @@
     <ul class="nav-menu">
       <li class="nav-item"><a href="#dashboard" class="nav-link active" data-view="dashboard"><i class="fa-solid fa-chart-pie"></i> ផ្ទាំងព័ត៌មានដើម</a></li>
       <li class="nav-item"><a href="#members" class="nav-link" data-view="members"><i class="fa-solid fa-users-line"></i> ក្រុមការងារ & គណនី</a></li>
+      <li class="nav-item"><a href="#employee-detail" class="nav-link" data-view="employee-detail"><i class="fa-solid fa-id-card"></i> ព័ត៌មានលម្អិតបុគ្គលិក</a></li>
       <li class="nav-item"><a href="#leaderboard" class="nav-link" data-view="leaderboard"><i class="fa-solid fa-trophy"></i> ចំណាត់ថ្នាក់បុគ្គលិក</a></li>
       <li class="nav-item"><a href="#posts" class="nav-link" data-view="posts"><i class="fa-solid fa-pen-to-square"></i> ការបង្ហោះសារ</a></li>
       <li class="nav-item"><a href="#reports" class="nav-link" data-view="reports"><i class="fa-solid fa-file-invoice"></i> របាយការណ៍ប្រចាំថ្ងៃ</a></li>
@@ -300,9 +301,12 @@
 
       <!-- 2. TEAM MEMBER & SOCIAL ACCOUNTS VIEW -->
       <section id="members" class="view-section">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;">បញ្ជីឈ្មោះក្រុមការងារ និងគណនី Social Media</h3>
-          <button class="btn btn-primary admin-only" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" class="form-control" id="memberSearchInput" placeholder="🔍 ស្វែងរកឈ្មោះ ឬអត្តលេខ..." oninput="MemberApp.render()" style="width: 220px; padding: 7px 12px; font-size: 0.85rem;">
+            <button class="btn btn-primary admin-only" onclick="MemberApp.openModal()"><i class="fa-solid fa-plus"></i> បន្ថែមបុគ្គលិក</button>
+          </div>
         </div>
         <div class="table-container">
           <table>
@@ -317,6 +321,65 @@
               </tr>
             </thead>
             <tbody id="memberTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 2.1 EMPLOYEE DETAIL VIEW -->
+      <section id="employee-detail" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-id-card" style="color: var(--primary);"></i> ទិដ្ឋភាពព័ត៌មានលម្អិតតាមបុគ្គលិកម្នាក់ៗ</h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">ជ្រើសរើសបុគ្គលិក៖</label>
+            <select class="form-control" id="empDetailSelect" onchange="EmployeeDetailModule.render()" style="width: auto; min-width: 200px;"></select>
+          </div>
+        </div>
+
+        <div class="dashboard-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+          <div class="stat-card">
+            <div class="stat-icon" style="color: var(--primary);"><i class="fa-solid fa-user-tag"></i></div>
+            <div class="stat-info">
+              <h4>អត្តលេខ & តួនាទី</h4>
+              <h2 id="empCardRole" style="font-size: 1.1rem;">-</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #1877f2;"><i class="fa-solid fa-share-nodes"></i></div>
+            <div class="stat-info">
+              <h4>សរុបការបង្ហោះទាំងអស់</h4>
+              <h2 id="empCardTotalPosts">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color: #f59e0b;"><i class="fa-solid fa-phone"></i></div>
+            <div class="stat-info">
+              <h4>លេខទូរស័ព្ទ</h4>
+              <h2 id="empCardPhone" style="font-size: 1rem;">-</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-card" style="margin-bottom: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px;">
+          <h4 style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase;">តំណភ្ជាប់គណនី Social Media ផ្ទាល់ខ្លួន</h4>
+          <div id="empCardLinks" style="display: flex; gap: 10px; flex-wrap: wrap;"></div>
+        </div>
+
+        <div class="table-container">
+          <div style="padding: 14px 16px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 0.9rem;">
+            ប្រវត្តិការបង្ហោះសាររបស់បុគ្គលិកនេះ
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>ថ្ងៃខែ</th>
+                <th>Platform</th>
+                <th>ប្រភេទ</th>
+                <th>ចំណងជើង</th>
+                <th>Link</th>
+                <th>ម៉ោង</th>
+              </tr>
+            </thead>
+            <tbody id="empDetailTableBody"></tbody>
           </table>
         </div>
       </section>
@@ -416,7 +479,7 @@
 
         <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px;">
           <h3><i class="fa-solid fa-rotate" style="color: var(--primary);"></i> ការអាប់ដេតទិន្នន័យ JSON ស្វ័យប្រវត្តិ (Auto-Update JSON)</h3>
-          <p style="font-size: 0.85rem; color: var(--text-secondary);">ប្រព័ន្ធធ្វើការទាញយកទិន្នន័យស្វ័យប្រវត្តិតាមឯកសារ <code>SocialMedia_Backup.json</code> រៀងរាល់ ១៥ វិនាទី[cite: 1]៖</p>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">ប្រព័ន្ធធ្វើការទាញយកទិន្នន័យស្វ័យប្រវត្តិតាមឯកសារ <code>SocialMedia_Backup.json</code> រៀងរាល់ ១៥ នាទី[cite: 1]៖</p>
           <div style="display: flex; gap: 10px; flex-wrap: wrap; width: 100%; align-items: center;">
             <input type="text" class="form-control" id="autoJsonPath" value="SocialMedia_Backup.json" style="max-width: 300px;" placeholder="ផ្លូវឯកសារ JSON">
             <button class="btn btn-primary" onclick="BackupModule.manualTriggerAutoUpdate()"><i class="fa-solid fa-sync"></i> អាប់ដេតឥឡូវនេះ</button>
@@ -441,6 +504,10 @@
     <a href="#members" class="mobile-nav-item" data-view="members" onclick="System.switchMobileView('members', 'ក្រុមការងារ')">
       <i class="fa-solid fa-users-line"></i>
       <span>បុគ្គលិក</span>
+    </a>
+    <a href="#employee-detail" class="mobile-nav-item" data-view="employee-detail" onclick="System.switchMobileView('employee-detail', 'ព័ត៌មានបុគ្គលិក')">
+      <i class="fa-solid fa-id-card"></i>
+      <span>ព័ត៌មានលម្អិត</span>
     </a>
     <a href="#leaderboard" class="mobile-nav-item" data-view="leaderboard" onclick="System.switchMobileView('leaderboard', 'ចំណាត់ថ្នាក់')">
       <i class="fa-solid fa-trophy"></i>
@@ -676,7 +743,7 @@
         document.body.classList.add('view-only');
 
         await BackupModule.autoFetchJSON();
-        setInterval(() => BackupModule.autoFetchJSON(), 15000);
+        setInterval(() => BackupModule.autoFetchJSON(), 900000);
       }
 
       static handleModeChange(mode) {
@@ -732,6 +799,7 @@
         if(targetView === 'reports') ReportModule.renderKhmerReport();
         if(targetView === 'analytics') AnalyticsModule.render();
         if(targetView === 'leaderboard') LeaderboardModule.render();
+        if(targetView === 'employee-detail') EmployeeDetailModule.render();
       }
 
       static setupNavigation() {
@@ -762,19 +830,43 @@
     class MemberApp {
       static async render() {
         State.members = await Database.getAll('members');
+        const searchVal = document.getElementById('memberSearchInput')?.value.toLowerCase().trim() || '';
         const tbody = document.getElementById('memberTableBody');
         const select = document.getElementById('postMemberSelect');
+        const empSelect = document.getElementById('empDetailSelect');
         if(!tbody || !select) return;
         tbody.innerHTML = '';
         select.innerHTML = '';
+        if(empSelect) empSelect.innerHTML = '';
 
-        if (State.members.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យបុគ្គលិក</td></tr>`;
-          select.innerHTML = `<option value="">-- គ្មានទិន្នន័យ --</option>`;
+        const filteredMembers = State.members.filter(m => {
+          if (!searchVal) return true;
+          return m.name.toLowerCase().includes(searchVal) || m.code.toLowerCase().includes(searchVal) || m.role.toLowerCase().includes(searchVal);
+        });
+
+        State.members.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m.name;
+          opt.textContent = `${m.name} (${m.role})`;
+          select.appendChild(opt);
+
+          if(empSelect) {
+            const empOpt = document.createElement('option');
+            empOpt.value = m.name;
+            empOpt.textContent = `${m.name} [${m.code}]`;
+            empSelect.appendChild(empOpt);
+          }
+        });
+
+        if (filteredMembers.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 15px;">រកមិនឃើញទិន្នន័យបុគ្គលិក</td></tr>`;
+          DashboardModule.render();
+          LeaderboardModule.render();
+          EmployeeDetailModule.render();
           return;
         }
 
-        State.members.forEach(m => {
+        filteredMembers.forEach(m => {
           const fbLink = m.fb ? `<a href="${m.fb}" target="_blank" class="badge-fb"><i class="fa-brands fa-facebook"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
           const ttLink = m.tt ? `<a href="${m.tt}" target="_blank" class="badge-tt"><i class="fa-brands fa-tiktok"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
           const tgLink = m.tg ? `<a href="${m.tg}" target="_blank" class="badge-tg"><i class="fa-brands fa-telegram"></i> Channel</a>` : '<span style="color:var(--text-secondary)">-</span>';
@@ -792,14 +884,11 @@
             </td>
           `;
           tbody.appendChild(tr);
-
-          const opt = document.createElement('option');
-          opt.value = m.name;
-          opt.textContent = `${m.name} (${m.role})`;
-          select.appendChild(opt);
         });
+
         DashboardModule.render();
         LeaderboardModule.render();
+        EmployeeDetailModule.render();
       }
 
       static openModal(id = null) {
@@ -860,6 +949,71 @@
           if(res) {
             System.toast('បានលុបជោគជ័យ');
             this.render();
+          }
+        }
+      }
+    }
+
+    class EmployeeDetailModule {
+      static async render() {
+        State.posts = await Database.getAll('posts');
+        State.members = await Database.getAll('members');
+        
+        const select = document.getElementById('empDetailSelect');
+        if(!select) return;
+        const selectedName = select.value;
+        
+        const member = State.members.find(m => m.name === selectedName);
+        const roleCard = document.getElementById('empCardRole');
+        const totalCard = document.getElementById('empCardTotalPosts');
+        const phoneCard = document.getElementById('empCardPhone');
+        const linksCard = document.getElementById('empCardLinks');
+        const tbody = document.getElementById('empDetailTableBody');
+
+        if(!member) {
+          if(roleCard) roleCard.innerText = '-';
+          if(totalCard) totalCard.innerText = '0';
+          if(phoneCard) phoneCard.innerText = '-';
+          if(linksCard) linksCard.innerHTML = '<span style="color:var(--text-secondary)">គ្មានទិន្នន័យ</span>';
+          if(tbody) tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 15px;">សូមជ្រើសរើសបុគ្គលិក</td></tr>`;
+          return;
+        }
+
+        const empPosts = State.posts.filter(p => p.memberName === member.name);
+
+        if(roleCard) roleCard.innerText = `${member.code} — ${member.role}`;
+        if(totalCard) totalCard.innerText = empPosts.length;
+        if(phoneCard) phoneCard.innerText = member.phone || 'មិនមានលេខទូរស័ព្ទ';
+
+        let linksHtml = '';
+        if(member.fb) linksHtml += `<a href="${member.fb}" target="_blank" class="badge-fb"><i class="fa-brands fa-facebook"></i> Facebook</a>`;
+        if(member.tt) linksHtml += `<a href="${member.tt}" target="_blank" class="badge-tt"><i class="fa-brands fa-tiktok"></i> Tiktok</a>`;
+        if(member.tg) linksHtml += `<a href="${member.tg}" target="_blank" class="badge-tg"><i class="fa-brands fa-telegram"></i> Telegram</a>`;
+        if(!linksHtml) linksHtml = '<span style="color:var(--text-secondary)">មិនមានតំណភ្ជាប់គណនី</span>';
+        if(linksCard) linksCard.innerHTML = linksHtml;
+
+        if(tbody) {
+          tbody.innerHTML = '';
+          if(empPosts.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 15px;">បុគ្គលិកនេះមិនទាន់មានការបង្ហោះសារនៅឡើយទេ</td></tr>`;
+          } else {
+            empPosts.sort((a,b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time)).forEach(p => {
+              let badgeClass = 'badge-fb';
+              if (p.platform === 'Tiktok') badgeClass = 'badge-tt';
+              if (p.platform === 'Telegram') badgeClass = 'badge-tg';
+
+              const typeBadge = `<span class="badge-type">${p.postType || 'រូបភាព'}</span>`;
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${p.date}</td>
+                <td><span class="${badgeClass}">${p.platform}</span></td>
+                <td>${typeBadge}</td>
+                <td>${p.title}</td>
+                <td><a href="${p.link}" target="_blank" style="color:var(--primary);">Link</a></td>
+                <td>${p.time}</td>
+              `;
+              tbody.appendChild(tr);
+            });
           }
         }
       }
@@ -986,6 +1140,7 @@
         });
         DashboardModule.render();
         LeaderboardModule.render();
+        EmployeeDetailModule.render();
       }
 
       static openModal(id = null) {
