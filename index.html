@@ -85,7 +85,7 @@
 
     @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
-    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
     .stat-card { background-color: var(--bg-card); border: 1px solid var(--border); padding: 18px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 14px; }
     .stat-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: rgba(0,0,0,0.04); flex-shrink: 0; }
     .stat-info h4 { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; }
@@ -93,6 +93,7 @@
 
     .badge-fb { background-color: #1877f2; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
     .badge-tt { background-color: #000000; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; border: 1px solid #333; }
+    .badge-tg { background-color: #229ed9; color: #fff; padding: 4px 10px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
     .badge-type { background-color: rgba(5, 150, 105, 0.12); color: var(--primary); padding: 3px 8px; border-radius: var(--radius-xl); font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--border); }
     
     /* Leaderboard Rank Badges */
@@ -103,7 +104,7 @@
     .rank-other { background-color: rgba(0,0,0,0.05); color: var(--text-secondary); }
 
     .table-container { background-color: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow-x: auto; box-shadow: var(--shadow-sm); margin-bottom: 24px; }
-    table { width: 100%; border-collapse: collapse; text-align: left; min-width: 650px; }
+    table { width: 100%; border-collapse: collapse; text-align: left; min-width: 750px; }
     th, td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
     th { background-color: rgba(0,0,0,0.02); font-weight: 600; color: var(--text-secondary); }
     tr:hover { background-color: rgba(0,0,0,0.015); }
@@ -265,6 +266,13 @@
             </div>
           </div>
           <div class="stat-card">
+            <div class="stat-icon" style="color: #229ed9;"><i class="fa-brands fa-telegram"></i></div>
+            <div class="stat-info">
+              <h4>Telegram</h4>
+              <h2 id="dashTGPosts">0</h2>
+            </div>
+          </div>
+          <div class="stat-card">
             <div class="stat-icon" style="color: #10b981;"><i class="fa-solid fa-users"></i></div>
             <div class="stat-info">
               <h4>សមាជិក</h4>
@@ -307,6 +315,7 @@
                 <th>តួនាទី</th>
                 <th>Facebook Account / Page</th>
                 <th>Tiktok Account</th>
+                <th>Telegram Account / Channel</th>
                 <th class="admin-only">សកម្មភាព</th>
               </tr>
             </thead>
@@ -337,6 +346,7 @@
                 <th>តួនាទី</th>
                 <th style="text-align: center;">Facebook</th>
                 <th style="text-align: center;">Tiktok</th>
+                <th style="text-align: center;">Telegram</th>
                 <th style="text-align: center; font-weight: 700; color: var(--primary);">សរុបការបង្ហោះ</th>
               </tr>
             </thead>
@@ -415,6 +425,9 @@
             <button class="btn btn-primary" onclick="BackupModule.manualTriggerAutoUpdate()"><i class="fa-solid fa-sync"></i> អាប់ដេតឥឡូវនេះ</button>
             <span id="autoUpdateStatus" style="font-size: 0.8rem; color: var(--text-secondary);">ស្ថានភាព៖ កំពុងដំណើរការស្វ័យប្រវត្តិ[cite: 1]</span>
           </div>
+        </div>
+        <div style="margin-top: 20px; font-size: 0.8rem; color: var(--text-secondary); text-align: center;">
+          បង្កើតឡើងដោយ៖ នី ច័ន្ទតារា[cite: 1]
         </div>
       </section>
 
@@ -514,6 +527,10 @@
             <label><i class="fa-brands fa-tiktok" style="color: #000;"></i> តំណភ្ជាប់គណនី Tiktok</label>
             <input type="url" class="form-control" id="memTt" placeholder="https://tiktok.com/@username">
           </div>
+          <div class="form-group">
+            <label><i class="fa-brands fa-telegram" style="color: #229ed9;"></i> តំណភ្ជាប់គណនី ឬ Channel Telegram</label>
+            <input type="url" class="form-control" id="memTg" placeholder="https://t.me/username">
+          </div>
         </form>
       </div>
       <div class="modal-footer">
@@ -543,6 +560,7 @@
               <select class="form-control" id="postPlatform" required>
                 <option value="Facebook">Facebook</option>
                 <option value="Tiktok">Tiktok</option>
+                <option value="Telegram">Telegram</option>
               </select>
             </div>
           </div>
@@ -755,7 +773,7 @@
         select.innerHTML = '';
 
         if (State.members.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យបុគ្គលិក</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យបុគ្គលិក</td></tr>`;
           select.innerHTML = `<option value="">-- គ្មានទិន្នន័យ --</option>`;
           return;
         }
@@ -763,6 +781,7 @@
         State.members.forEach(m => {
           const fbLink = m.fb ? `<a href="${m.fb}" target="_blank" class="badge-fb"><i class="fa-brands fa-facebook"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
           const ttLink = m.tt ? `<a href="${m.tt}" target="_blank" class="badge-tt"><i class="fa-brands fa-tiktok"></i> Profile</a>` : '<span style="color:var(--text-secondary)">-</span>';
+          const tgLink = m.tg ? `<a href="${m.tg}" target="_blank" class="badge-tg"><i class="fa-brands fa-telegram"></i> Channel</a>` : '<span style="color:var(--text-secondary)">-</span>';
 
           const tr = document.createElement('tr');
           tr.innerHTML = `
@@ -770,6 +789,7 @@
             <td>${m.role}</td>
             <td>${fbLink}</td>
             <td>${ttLink}</td>
+            <td>${tgLink}</td>
             <td class="admin-only">
               <button class="btn btn-outline" style="padding: 2px 6px;" onclick="MemberApp.openModal('${m.id}')"><i class="fa-solid fa-pen"></i></button>
               <button class="btn btn-danger" style="padding: 2px 6px;" onclick="MemberApp.delete('${m.id}')"><i class="fa-solid fa-trash"></i></button>
@@ -802,6 +822,7 @@
             document.getElementById('memPhone').value = m.phone || '';
             document.getElementById('memFb').value = m.fb || '';
             document.getElementById('memTt').value = m.tt || '';
+            document.getElementById('memTg').value = m.tg || '';
             document.getElementById('memberModalTitle').innerText = 'កែប្រែព័ត៌មានបុគ្គលិក';
           }
         }
@@ -821,13 +842,14 @@
         const phone = document.getElementById('memPhone').value;
         const fb = document.getElementById('memFb').value;
         const tt = document.getElementById('memTt').value;
+        const tg = document.getElementById('memTg').value;
 
         if (!code || !name || !role) {
           System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
           return;
         }
 
-        const res = await Database.save('members', { id, code, name, role, phone, fb, tt });
+        const res = await Database.save('members', { id, code, name, role, phone, fb, tt, tg });
         if(res) {
           System.toast('រក្សាទុកបានជោគជ័យ!');
           this.closeModal();
@@ -860,7 +882,6 @@
         const currentYear = now.getFullYear();
         const currentMonth = now.getMonth();
 
-        // Helper to check date filters
         const checkPeriod = (dateStr) => {
           if (period === 'all') return true;
           const pDate = new Date(dateStr);
@@ -877,7 +898,6 @@
           return true;
         };
 
-        // Aggregate stats per member
         const statsMap = {};
         State.members.forEach(m => {
           statsMap[m.name] = {
@@ -885,6 +905,7 @@
             role: m.role,
             fb: 0,
             tt: 0,
+            tg: 0,
             total: 0
           };
         });
@@ -892,12 +913,14 @@
         State.posts.forEach(p => {
           if (checkPeriod(p.date)) {
             if (!statsMap[p.memberName]) {
-              statsMap[p.memberName] = { name: p.memberName, role: 'បុគ្គលិក', fb: 0, tt: 0, total: 0 };
+              statsMap[p.memberName] = { name: p.memberName, role: 'បុគ្គលិក', fb: 0, tt: 0, tg: 0, total: 0 };
             }
             if (p.platform === 'Facebook') {
               statsMap[p.memberName].fb++;
             } else if (p.platform === 'Tiktok') {
               statsMap[p.memberName].tt++;
+            } else if (p.platform === 'Telegram') {
+              statsMap[p.memberName].tg++;
             }
             statsMap[p.memberName].total++;
           }
@@ -906,7 +929,7 @@
         const rankedList = Object.values(statsMap).sort((a, b) => b.total - a.total);
 
         if (rankedList.length === 0 || rankedList.every(i => i.total === 0)) {
-          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary); padding: 20px;">មិនទមានទិន្នន័យចំណាត់ថ្នាក់សម្រាប់រយៈពេលនេះទេ</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-secondary); padding: 20px;">មិនទមានទិន្នន័យចំណាត់ថ្នាក់សម្រាប់រយៈពេលនេះទេ</td></tr>`;
           return;
         }
 
@@ -924,6 +947,7 @@
             <td><span style="color: var(--text-secondary);">${item.role}</span></td>
             <td style="text-align: center;"><span class="badge-fb">${item.fb}</span></td>
             <td style="text-align: center;"><span class="badge-tt">${item.tt}</span></td>
+            <td style="text-align: center;"><span class="badge-tg">${item.tg}</span></td>
             <td style="text-align: center; font-weight: 700; color: var(--primary); font-size: 1rem;">${item.total}</td>
           `;
           tbody.appendChild(tr);
@@ -944,7 +968,10 @@
         }
 
         State.posts.sort((a,b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time)).forEach(p => {
-          const badgeClass = p.platform === 'Facebook' ? 'badge-fb' : 'badge-tt';
+          let badgeClass = 'badge-fb';
+          if (p.platform === 'Tiktok') badgeClass = 'badge-tt';
+          if (p.platform === 'Telegram') badgeClass = 'badge-tg';
+
           const typeBadge = `<span class="badge-type">${p.postType || 'រូបភាព'}</span>`;
           const tr = document.createElement('tr');
           tr.innerHTML = `
@@ -1042,11 +1069,13 @@
         const totalEl = document.getElementById('dashTotalPosts');
         const fbEl = document.getElementById('dashFBPosts');
         const ttEl = document.getElementById('dashTTPosts');
+        const tgEl = document.getElementById('dashTGPosts');
         const staffEl = document.getElementById('dashActiveStaff');
 
         if(totalEl) totalEl.innerText = filteredPosts.length;
         if(fbEl) fbEl.innerText = filteredPosts.filter(p => p.platform === 'Facebook').length;
         if(ttEl) ttEl.innerText = filteredPosts.filter(p => p.platform === 'Tiktok').length;
+        if(tgEl) tgEl.innerText = filteredPosts.filter(p => p.platform === 'Telegram').length;
         if(staffEl) staffEl.innerText = State.members.length;
 
         const tbody = document.getElementById('dashRecentTable');
@@ -1057,7 +1086,10 @@
           tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color: var(--text-secondary);">គ្មានទិន្នន័យថ្ងៃនេះ[cite: 1]</td></tr>`;
         } else {
           filteredPosts.forEach(p => {
-            const badgeClass = p.platform === 'Facebook' ? 'badge-fb' : 'badge-tt';
+            let badgeClass = 'badge-fb';
+            if (p.platform === 'Tiktok') badgeClass = 'badge-tt';
+            if (p.platform === 'Telegram') badgeClass = 'badge-tg';
+
             const typeBadge = `<span class="badge-type">${p.postType || 'រូបភាព'}</span>`;
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -1083,12 +1115,14 @@
         const dayPosts = State.posts.filter(p => p.date === reportDate);
         const fbPosts = dayPosts.filter(p => p.platform === 'Facebook');
         const ttPosts = dayPosts.filter(p => p.platform === 'Tiktok');
+        const tgPosts = dayPosts.filter(p => p.platform === 'Telegram');
 
         let reportStr = `📊 [របាយការណ៍ការបង្ហោះសារប្រចាំថ្ងៃ][cite: 1]\n`;
         reportStr += `📅 កាលបរិច្ឆេទ ៖ ${formattedDate}\n`;
         reportStr += `📌 សរុប ៖ ${dayPosts.length} ផុស\n`;
         reportStr += `🔵 Facebook ៖ ${fbPosts.length} ផុស\n`;
-        reportStr += `⚫ Tiktok ៖ ${ttPosts.length} ផុស\n\n`;
+        reportStr += `⚫ Tiktok ៖ ${ttPosts.length} ផុស\n`;
+        reportStr += `🔵 Telegram ៖ ${tgPosts.length} ផុស\n\n`;
 
         reportStr += `📱 ១. Facebook (${fbPosts.length} ផុស)៖\n`;
         if (fbPosts.length === 0) reportStr += `  (គ្មាន)\n`;
@@ -1099,6 +1133,12 @@
         reportStr += `\n🎵 ២. Tiktok (${ttPosts.length} ផុស)៖\n`;
         if (ttPosts.length === 0) reportStr += `  (គ្មាន)\n`;
         ttPosts.forEach((p, idx) => {
+          reportStr += `  ${idx + 1}. ${p.memberName} [${p.postType || 'រូបភាព'}] — "${p.title}"\n     🔗 ${p.link}\n`;
+        });
+
+        reportStr += `\n💬 ៣. Telegram (${tgPosts.length} ផុស)៖\n`;
+        if (tgPosts.length === 0) reportStr += `  (គ្មាន)\n`;
+        tgPosts.forEach((p, idx) => {
           reportStr += `  ${idx + 1}. ${p.memberName} [${p.postType || 'រូបភាព'}] — "${p.title}"\n     🔗 ${p.link}\n`;
         });
 
@@ -1140,13 +1180,14 @@
         window.myChart1 = new Chart(ctx1, {
           type: 'doughnut',
           data: {
-            labels: ['Facebook', 'Tiktok'],
+            labels: ['Facebook', 'Tiktok', 'Telegram'],
             datasets: [{
               data: [
                 State.posts.filter(p => p.platform === 'Facebook').length,
-                State.posts.filter(p => p.platform === 'Tiktok').length
+                State.posts.filter(p => p.platform === 'Tiktok').length,
+                State.posts.filter(p => p.platform === 'Telegram').length
               ],
-              backgroundColor: ['#1877f2', '#000000']
+              backgroundColor: ['#1877f2', '#000000', '#229ed9']
             }]
           },
           options: { responsive: true, maintainAspectRatio: false }
