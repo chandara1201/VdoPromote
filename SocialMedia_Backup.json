@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportDate": "2026-08-13T10:41:07.953Z",
+  "exportDate": "2026-08-13T15:47:27.526Z",
   "members": [
     {
       "id": "MEM-1786418320702",
@@ -509,6 +509,16 @@
       "role": "Promoter",
       "phone": "",
       "fb": "https://www.facebook.com/profile.php?id=61592892831283",
+      "tt": "",
+      "tg": ""
+    },
+    {
+      "id": "MEM-1786628326771",
+      "code": "052",
+      "name": "LY MEY/លីមុី🎀🤍",
+      "role": "Training",
+      "phone": "",
+      "fb": "",
       "tt": "",
       "tg": ""
     }
@@ -1463,6 +1473,56 @@
       "time": "17:23",
       "title": "Colognes Soap",
       "link": "https://www.facebook.com/share/r/19BgNBJUEs/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786628910043",
+      "memberName": "Singha ~ សឹង្ហា",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-08-13",
+      "time": "19:28",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1EebmkjJGc/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786628968579",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-08-13",
+      "time": "19:28",
+      "title": "Colognes Soap",
+      "link": "https://vt.tiktok.com/ZSV1kya7H/"
+    },
+    {
+      "id": "POST-1786635176396",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-08-13",
+      "time": "21:17",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1C2spY1d7U/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786635311900",
+      "memberName": "Vrieak pich",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-08-13",
+      "time": "21:34",
+      "title": "Nita Foam Premium",
+      "link": "https://vt.tiktok.com/ZSV1fGMJc/"
+    },
+    {
+      "id": "POST-1786635519252",
+      "memberName": "តាក់ មិនា",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-08-13",
+      "time": "19:35",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/p/1NeFD6Ss9A/?mibextid=wwXIfr"
     }
   ]
 }
