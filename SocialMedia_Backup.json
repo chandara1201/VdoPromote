@@ -1,7 +1,27 @@
 {
   "version": 1,
-  "exportDate": "2026-08-14T09:55:48.511Z",
+  "exportDate": "2026-08-14T11:48:07.686Z",
   "members": [
+    {
+      "id": "MEM-1786418320702",
+      "code": "008",
+      "name": "Vrieak pich",
+      "role": "Promoter",
+      "phone": "+855967260179",
+      "fb": "https://www.facebook.com/profile.php?id=61593172045762",
+      "tt": "",
+      "tg": "https://t.me/pich_vrieak13"
+    },
+    {
+      "id": "MEM-1786420072681",
+      "code": "009",
+      "name": "ន ប៊ុនណេង",
+      "role": "Promoter",
+      "phone": "",
+      "fb": "https://www.facebook.com/profile.php?id=100092574129459",
+      "tt": "",
+      "tg": ""
+    },
     {
       "id": "MEM-1786423402210",
       "code": "001",
@@ -71,26 +91,6 @@
       "fb": "https://www.facebook.com/profile.php?id=61550468488970",
       "tt": "",
       "tg": "https://t.me/Theara_kh"
-    },
-    {
-      "id": "MEM-1786418320702",
-      "code": "008",
-      "name": "Vrieak pich",
-      "role": "Promoter",
-      "phone": "+855967260179",
-      "fb": "https://www.facebook.com/profile.php?id=61593172045762",
-      "tt": "",
-      "tg": "https://t.me/pich_vrieak13"
-    },
-    {
-      "id": "MEM-1786420072681",
-      "code": "009",
-      "name": "ន ប៊ុនណេង",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "https://www.facebook.com/profile.php?id=100092574129459",
-      "tt": "",
-      "tg": ""
     },
     {
       "id": "MEM-1786426095391",
@@ -530,6 +530,16 @@
       "phone": "",
       "fb": "",
       "tt": "",
+      "tg": ""
+    },
+    {
+      "id": "MEM-1786708018393",
+      "code": "054",
+      "name": "Vna.Vna",
+      "role": "Traning",
+      "phone": "",
+      "fb": "https://www.facebook.com/share/1FSbEyqDmB/",
+      "tt": "https://vm.tiktok.com/ZS9khX1QU7mux-1304r/",
       "tg": ""
     }
   ],
@@ -1683,6 +1693,26 @@
       "time": "14:06",
       "title": "និតា ស្រ្កាប់កាហ្វេ",
       "link": "https://vt.tiktok.com/ZSVeagYqf/"
+    },
+    {
+      "id": "POST-1786707956993",
+      "memberName": "Theara",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-08-14",
+      "time": "17:47",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/19Hoy3PSoj/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786708079137",
+      "memberName": "ភី រីយ៉ា",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-08-14",
+      "time": "18:43",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/192jRYLdyq/?mibextid=wwXIfr"
     }
   ]
 }
