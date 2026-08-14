@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "exportDate": "2026-08-14T14:21:23.072Z",
+  "exportDate": "2026-08-14T16:33:33.984Z",
   "members": [
     {
       "id": "MEM-1786418320702",
@@ -518,8 +518,8 @@
       "name": "LY MEY/លីមុី🎀🤍",
       "role": "Traning",
       "phone": "",
-      "fb": "",
-      "tt": "",
+      "fb": "https://www.facebook.com/share/1EJMeAtEyZ/?mibextid=wwXIfr",
+      "tt": "https://www.tiktok.com/@lymeyy17?_r=1&_t=ZS-98sXwpIArW4",
       "tg": ""
     },
     {
@@ -1733,6 +1733,36 @@
       "time": "18:53",
       "title": "Nita Foam Premium",
       "link": "https://vt.tiktok.com/ZSVdr5Fbk/"
+    },
+    {
+      "id": "POST-1786725065110",
+      "memberName": "Mare-រេ",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-08-14",
+      "time": "21:38",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/reel/1086738940701258/?fs=e&mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786725086846",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-08-14",
+      "time": "21:50",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/19Pgmoe2oi/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1786725164422",
+      "memberName": "Vrieak pich",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-08-14",
+      "time": "21:43",
+      "title": "Nita Foam Premium",
+      "link": "https://vt.tiktok.com/ZSVdVaGwa/"
     }
   ]
 }
