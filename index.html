@@ -206,7 +206,7 @@
       <li class="nav-item"><a href="#leaderboard" class="nav-link" data-view="leaderboard"><i class="fa-solid fa-trophy"></i> ចំណាត់ថ្នាក់បុគ្គលិក</a></li>
       <li class="nav-item"><a href="#posts" class="nav-link" data-view="posts"><i class="fa-solid fa-pen-to-square"></i> ការបង្ហោះសារ</a></li>
       <li class="nav-item"><a href="#reports" class="nav-link" data-view="reports"><i class="fa-solid fa-file-invoice"></i> របាយការណ៍ប្រចាំថ្ងៃ</a></li>
-      <li class="nav-item"><a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> ការវិភាគ</a></li>
+      <li class="nav-item"><a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> ការវិភាគ (Platform)</a></li>
       <li class="nav-item"><a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gears"></i> ការកំណត់</a></li>
     </ul>
   </aside>
@@ -395,13 +395,20 @@
       <section id="leaderboard" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> តារាងចំណាត់ថ្នាក់បុគ្គលិកឆ្នើម (Leaderboard)</h3>
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <label style="font-weight: 600; font-size: 0.85rem;">រយៈពេល៖</label>
-            <select class="form-control" id="rankPeriodFilter" onchange="LeaderboardModule.render()" style="width: auto;">
-              <option value="all">សរុបទាំងអស់ (All-Time)</option>
-              <option value="month">ខែនេះ (This Month)</option>
-              <option value="week">សប្តាហ៍នេះ (This Week)</option>
-            </select>
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <label style="font-weight: 600; font-size: 0.85rem;">រយៈពេល៖</label>
+              <select class="form-control" id="rankPeriodFilter" onchange="LeaderboardModule.handlePeriodChange(this.value)" style="width: auto;">
+                <option value="all">សរុបទាំងអស់ (All-Time)</option>
+                <option value="month">ខែនេះ (This Month)</option>
+                <option value="week">សប្តាហ៍នេះ (This Week)</option>
+                <option value="specific-month">ជ្រើសរើសខែជាក់លាក់ (Choose Month)</option>
+              </select>
+            </div>
+            <!-- Dynamic Specific Month Input field -->
+            <div id="specificMonthContainer" style="display: none; align-items: center; gap: 6px;">
+              <input type="month" class="form-control" id="rankSpecificMonthInput" onchange="LeaderboardModule.render()" style="width: auto;">
+            </div>
           </div>
         </div>
         <div class="table-container">
@@ -468,6 +475,18 @@
 
       <!-- 6. ANALYTICS VIEW -->
       <section id="analytics" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> ការវិភាគការបង្ហោះតាមប្រព័ន្ធ (Daily Post Chart by Platform)</h3>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <label style="font-weight: 600; font-size: 0.85rem;">ជ្រើសរើសខែ៖</label>
+            <input type="month" class="form-control" id="analyticsMonthFilter" onchange="AnalyticsModule.render()" style="width: auto;">
+          </div>
+        </div>
+        
+        <div class="stat-card" style="height: 380px; display: block; margin-bottom: 20px;">
+          <canvas id="dailyPlatformChart"></canvas>
+        </div>
+
         <div class="form-row">
           <div class="stat-card" style="height: 320px; display: block;">
             <canvas id="platformChart"></canvas>
@@ -861,7 +880,6 @@
           return m.name.toLowerCase().includes(searchVal) || m.code.toLowerCase().includes(searchVal) || m.role.toLowerCase().includes(searchVal);
         });
 
-        // Sorting logic for members explicitly from 001 to xxx numerically and alphabetically
         filteredMembers.sort((a, b) => {
           if (sortBy === 'code-asc') return a.code.localeCompare(b.code, undefined, {numeric: true});
           if (sortBy === 'name-asc') return a.name.localeCompare(b.name);
@@ -869,7 +887,6 @@
           return 0;
         });
 
-        // Always sort all members by code (001 -> xxx) for dropdowns
         const sortedMembersForDropdown = [...State.members].sort((a, b) => a.code.localeCompare(b.code, undefined, {numeric: true}));
 
         sortedMembersForDropdown.forEach(m => {
@@ -939,7 +956,6 @@
             document.getElementById('memberModalTitle').innerText = 'កែប្រែព័ត៌មានបុគ្គលិក';
           }
         } else {
-          // Auto generate next code sequentially (001, 002, etc.)
           const nextNum = State.members.length + 1;
           const formattedCode = String(nextNum).padStart(3, '0');
           document.getElementById('memCode').value = formattedCode;
@@ -963,7 +979,7 @@
         const tg = document.getElementById('memTg').value.trim();
 
         if (!code || !name || !role) {
-          System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
+          System.toast('សូមបំព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
           return;
         }
 
@@ -1053,10 +1069,26 @@
     }
 
     class LeaderboardModule {
+      static handlePeriodChange(value) {
+        const specificMonthContainer = document.getElementById('specificMonthContainer');
+        const specificMonthInput = document.getElementById('rankSpecificMonthInput');
+        
+        if (value === 'specific-month') {
+          specificMonthContainer.style.display = 'flex';
+          if (!specificMonthInput.value) {
+            specificMonthInput.value = new Date().toISOString().slice(0, 7);
+          }
+        } else {
+          specificMonthContainer.style.display = 'none';
+        }
+        this.render();
+      }
+
       static async render() {
         State.posts = await Database.getAll('posts');
         State.members = await Database.getAll('members');
         const period = document.getElementById('rankPeriodFilter')?.value || 'all';
+        const specificMonthVal = document.getElementById('rankSpecificMonthInput')?.value;
         const tbody = document.getElementById('leaderboardTableBody');
         if(!tbody) return;
         tbody.innerHTML = '';
@@ -1074,9 +1106,14 @@
             return pDate.getFullYear() === currentYear && pDate.getMonth() === currentMonth;
           }
           if (period === 'week') {
-            const firstDayOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            const firstDayOfWeek = new Date(now);
+            firstDayOfWeek.setDate(now.getDate() - now.getDay());
             firstDayOfWeek.setHours(0,0,0,0);
             return pDate >= firstDayOfWeek;
+          }
+          if (period === 'specific-month' && specificMonthVal) {
+            const [targetYear, targetMonth] = specificMonthVal.split('-').map(Number);
+            return pDate.getFullYear() === targetYear && (pDate.getMonth() + 1) === targetMonth;
           }
           return true;
         };
@@ -1112,7 +1149,7 @@
         const rankedList = Object.values(statsMap).sort((a, b) => b.total - a.total);
 
         if (rankedList.length === 0 || rankedList.every(i => i.total === 0)) {
-          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-secondary); padding: 20px;">មិនទមានទិន្នន័យចំណាត់ថ្នាក់សម្រាប់រយៈពេលនេះទេ</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-secondary); padding: 20px;">មិនទាន់មានទិន្នន័យចំណាត់ថ្នាក់សម្រាប់រយៈពេលនេះទេ</td></tr>`;
           return;
         }
 
@@ -1366,24 +1403,100 @@
 
     class AnalyticsModule {
       static render() {
+        const ctxDaily = document.getElementById('dailyPlatformChart')?.getContext('2d');
         const ctx1 = document.getElementById('platformChart')?.getContext('2d');
         const ctx2 = document.getElementById('memberChart')?.getContext('2d');
-        if(!ctx1 || !ctx2) return;
+        if(!ctxDaily || !ctx1 || !ctx2) return;
 
+        if (window.myDailyChart) window.myDailyChart.destroy();
         if (window.myChart1) window.myChart1.destroy();
         if (window.myChart2) window.myChart2.destroy();
 
+        const monthInput = document.getElementById('analyticsMonthFilter');
+        if (monthInput && !monthInput.value) {
+          monthInput.value = new Date().toISOString().slice(0, 7);
+        }
+        const selectedYM = monthInput ? monthInput.value : new Date().toISOString().slice(0, 7);
+        const [year, month] = selectedYM.split('-').map(Number);
+        
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const daysLabels = [];
+        const fbData = [];
+        const ttData = [];
+        const tgData = [];
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dayStr = String(d).padStart(2, '0');
+          const dateStr = `${selectedYM}-${dayStr}`;
+          daysLabels.push(`${dayStr}`);
+
+          const dayPosts = State.posts.filter(p => p.date === dateStr);
+          fbData.push(dayPosts.filter(p => p.platform === 'Facebook').length);
+          ttData.push(dayPosts.filter(p => p.platform === 'Tiktok').length);
+          tgData.push(dayPosts.filter(p => p.platform === 'Telegram').length);
+        }
+
+        window.myDailyChart = new Chart(ctxDaily, {
+          type: 'line',
+          data: {
+            labels: daysLabels,
+            datasets: [
+              {
+                label: 'Facebook',
+                data: fbData,
+                borderColor: '#1877f2',
+                backgroundColor: 'rgba(24, 119, 242, 0.1)',
+                fill: true,
+                tension: 0.3
+              },
+              {
+                label: 'Tiktok',
+                data: ttData,
+                borderColor: '#000000',
+                backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                fill: true,
+                tension: 0.3
+              },
+              {
+                label: 'Telegram',
+                data: tgData,
+                borderColor: '#229ed9',
+                backgroundColor: 'rgba(34, 158, 217, 0.1)',
+                fill: true,
+                tension: 0.3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: `ការបង្ហោះប្រចាំថ្ងៃតាម Platform ប្រចាំខែ ${selectedYM}`
+              }
+            },
+            scales: {
+              y: { beginAtZero: true, ticks: { stepSize: 1 } }
+            }
+          }
+        });
+
         window.myChart1 = new Chart(ctx1, {
-          type: 'doughnut',
+          type: 'line',
           data: {
             labels: ['Facebook', 'Tiktok', 'Telegram'],
             datasets: [{
+              label: 'ចំនួនផុសសរុបតាម Platform',
               data: [
                 State.posts.filter(p => p.platform === 'Facebook').length,
                 State.posts.filter(p => p.platform === 'Tiktok').length,
                 State.posts.filter(p => p.platform === 'Telegram').length
               ],
-              backgroundColor: ['#1877f2', '#000000', '#229ed9']
+              borderColor: '#059669',
+              backgroundColor: 'rgba(5, 150, 105, 0.1)',
+              fill: true,
+              tension: 0.3
             }]
           },
           options: { responsive: true, maintainAspectRatio: false }
@@ -1395,13 +1508,16 @@
         });
 
         window.myChart2 = new Chart(ctx2, {
-          type: 'bar',
+          type: 'line',
           data: {
             labels: Object.keys(memberCounts).length ? Object.keys(memberCounts) : ['គ្មាន'],
             datasets: [{
               label: 'ចំនួនផុសតាមបុគ្គលិក',
               data: Object.values(memberCounts).length ? Object.values(memberCounts) : [0],
-              backgroundColor: '#059669'
+              borderColor: '#3b82f6',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              fill: true,
+              tension: 0.3
             }]
           },
           options: { responsive: true, maintainAspectRatio: false }
