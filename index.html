@@ -205,6 +205,7 @@
       <li class="nav-item"><a href="#employee-detail" class="nav-link" data-view="employee-detail"><i class="fa-solid fa-id-card"></i> ព័ត៌មានលម្អិតបុគ្គលិក</a></li>
       <li class="nav-item"><a href="#leaderboard" class="nav-link" data-view="leaderboard"><i class="fa-solid fa-trophy"></i> ចំណាត់ថ្នាក់បុគ្គលិក</a></li>
       <li class="nav-item"><a href="#posts" class="nav-link" data-view="posts"><i class="fa-solid fa-pen-to-square"></i> ការបង្ហោះសារ</a></li>
+      <li class="nav-item"><a href="#leaves" class="nav-link" data-view="leaves"><i class="fa-solid fa-calendar-days"></i> ច្បាប់ឈប់សម្រាក</a></li>
       <li class="nav-item"><a href="#reports" class="nav-link" data-view="reports"><i class="fa-solid fa-file-invoice"></i> របាយការណ៍ប្រចាំថ្ងៃ</a></li>
       <li class="nav-item"><a href="#analytics" class="nav-link" data-view="analytics"><i class="fa-solid fa-chart-line"></i> ការវិភាគ (Platform)</a></li>
       <li class="nav-item"><a href="#settings" class="nav-link" data-view="settings"><i class="fa-solid fa-gears"></i> ការកំណត់</a></li>
@@ -461,7 +462,34 @@
         </div>
       </section>
 
-      <!-- 5. KHMER DAILY REPORT VIEW -->
+      <!-- 5. LEAVE MANAGEMENT VIEW (ADDED FEATURE) -->
+      <section id="leaves" class="view-section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-calendar-days" style="color: var(--primary);"></i> ការគ្រប់គ្រងច្បាប់ឈប់សម្រាកបុគ្គលិក</h3>
+          <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <input type="text" class="form-control" id="leaveSearchInput" placeholder="🔍 ស្វែងរកឈ្មោះ..." oninput="LeaveModule.render()" style="width: 180px; padding: 7px 12px; font-size: 0.85rem;">
+            <button class="btn btn-primary admin-only" onclick="LeaveModule.openModal()"><i class="fa-solid fa-plus"></i> បញ្ចូលច្បាប់ឈប់សម្រាក</button>
+          </div>
+        </div>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ឈ្មោះបុគ្គលិក</th>
+                <th>ប្រភេទច្បាប់</th>
+                <th>ថ្ងៃចាប់ផ្ដើម</th>
+                <th>ថ្ងៃបញ្ចប់</th>
+                <th>ចំនួនថ្ងៃ</th>
+                <th>ហេតុផល / កំណត់ចំណាំ</th>
+                <th class="admin-only">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="leaveTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 6. KHMER DAILY REPORT VIEW -->
       <section id="reports" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;">របាយការណ៍សង្ខេប</h3>
@@ -473,7 +501,7 @@
         <div class="report-paper" id="khmerReportPaper"></div>
       </section>
 
-      <!-- 6. ANALYTICS VIEW -->
+      <!-- 7. ANALYTICS VIEW -->
       <section id="analytics" class="view-section">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
           <h3 style="font-size: 1.1rem;"><i class="fa-solid fa-chart-line" style="color: var(--primary);"></i> ការវិភាគការបង្ហោះតាមប្រព័ន្ធ (Daily Post Chart by Platform)</h3>
@@ -497,7 +525,7 @@
         </div>
       </section>
 
-      <!-- 7. SETTINGS VIEW -->
+      <!-- 8. SETTINGS VIEW -->
       <section id="settings" class="view-section">
         <div class="stat-card" style="flex-direction: column; align-items: flex-start; gap: 14px; margin-bottom: 20px;">
           <h3>ការកំណត់ប្រព័ន្ធ និងបម្រុងទុកទិន្នន័យ (Backup & Restore)</h3>
@@ -539,17 +567,13 @@
       <i class="fa-solid fa-users-line"></i>
       <span>បុគ្គលិក</span>
     </a>
-    <a href="#employee-detail" class="mobile-nav-item" data-view="employee-detail" onclick="System.switchMobileView('employee-detail', 'ព័ត៌មានបុគ្គលិក')">
-      <i class="fa-solid fa-id-card"></i>
-      <span>ព័ត៌មានលម្អិត</span>
-    </a>
-    <a href="#leaderboard" class="mobile-nav-item" data-view="leaderboard" onclick="System.switchMobileView('leaderboard', 'ចំណាត់ថ្នាក់')">
-      <i class="fa-solid fa-trophy"></i>
-      <span>ចំណាត់ថ្នាក់</span>
-    </a>
     <a href="#posts" class="mobile-nav-item" data-view="posts" onclick="System.switchMobileView('posts', 'ការបង្ហោះ')">
       <i class="fa-solid fa-pen-to-square"></i>
       <span>ការផុស</span>
+    </a>
+    <a href="#leaves" class="mobile-nav-item" data-view="leaves" onclick="System.switchMobileView('leaves', 'ច្បាប់ឈប់')">
+      <i class="fa-solid fa-calendar-days"></i>
+      <span>ច្បាប់ឈប់</span>
     </a>
     <a href="#reports" class="mobile-nav-item" data-view="reports" onclick="System.switchMobileView('reports', 'របាយការណ៍')">
       <i class="fa-solid fa-file-invoice"></i>
@@ -700,70 +724,148 @@
     </div>
   </div>
 
+  <!-- MODAL: ADD / EDIT LEAVE (ADDED FEATURE) -->
+  <div class="modal-overlay" id="leaveModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="leaveModalTitle" style="font-size: 1rem;">បញ្ចូលច្បាប់ឈប់សម្រាកបុគ្គលិក</h3>
+        <button class="btn btn-outline" style="padding: 2px 8px;" onclick="LeaveModule.closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="leaveForm">
+          <input type="hidden" id="leaveId">
+          <div class="form-row">
+            <div class="form-group">
+              <label>ឈ្មោះបុគ្គលិក</label>
+              <select class="form-control" id="leaveMemberSelect" required></select>
+            </div>
+            <div class="form-group">
+              <label>ប្រភេទច្បាប់ឈប់សម្រាក</label>
+              <select class="form-control" id="leaveType" required>
+                <option value="ច្បាប់ឈប់សម្រាកប្រចាំឆ្នាំ (Annual Leave)">ច្បាប់ឈប់សម្រាកប្រចាំឆ្នាំ (Annual Leave)</option>
+                <option value="ច្បាប់ឈប់សម្រាកព្យាបាលជំងឺ (Sick Leave)">ច្បាប់ឈប់សម្រាកព្យាបាលជំងឺ (Sick Leave)</option>
+                <option value="ច្បាប់កិច្ចការផ្ទាល់ខ្លួន (Personal Leave)">ច្បាប់កិច្ចការផ្ទាល់ខ្លួន (Personal Leave)</option>
+                <option value="ច្បាប់សម្រាលកូន (Maternity/Paternity Leave)">ច្បាប់សម្រាលកូន (Maternity/Paternity Leave)</option>
+                <option value="ច្បាប់ពិសេសផ្សេងៗ (Other Leave)">ច្បាប់ពិសេសផ្សេងៗ (Other Leave)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>ថ្ងៃចាប់ផ្ដើម (Start Date)</label>
+              <input type="date" class="form-control" id="leaveStartDate" required>
+            </div>
+            <div class="form-group">
+              <label>ថ្ងៃបញ្ចប់ (End Date)</label>
+              <input type="date" class="form-control" id="leaveEndDate" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>ហេតុផល / កំណត់ចំណាំពី Admin</label>
+            <textarea class="form-control" id="leaveReason" rows="3" placeholder="បញ្ជាក់ពីមូលហេតុនៃការសុំច្បាប់..."></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="LeaveModule.closeModal()">បោះបង់</button>
+        <button class="btn btn-primary" onclick="LeaveModule.save()">រក្សាទុក</button>
+      </div>
+    </div>
+  </div>
+
   <div class="toast-container" id="toastBox"></div>
 
   <script>
     const DB_NAME = 'SocialMediaAccountDB';
-    const DB_VERSION = 1;
+    const DB_VERSION = 2; 
     const ADMIN_PASSWORD = 'admin123';
 
     class Database {
       static async getStore() {
-        return new Promise((resolve) => {
+        return new Promise((resolve, reject) => {
           const req = indexedDB.open(DB_NAME, DB_VERSION);
           req.onupgradeneeded = (e) => {
             const db = e.target.result;
             if (!db.objectStoreNames.contains('members')) db.createObjectStore('members', { keyPath: 'id' });
             if (!db.objectStoreNames.contains('posts')) db.createObjectStore('posts', { keyPath: 'id' });
+            if (!db.objectStoreNames.contains('leaves')) db.createObjectStore('leaves', { keyPath: 'id' });
           };
           req.onsuccess = (e) => resolve(e.target.result);
+          req.onerror = (e) => reject(e.target.error);
         });
       }
 
       static async getAll(storeName) {
-        const db = await this.getStore();
-        return new Promise((resolve) => {
-          const tx = db.transaction(storeName, 'readonly');
-          const store = tx.objectStore(storeName);
-          const req = store.getAll();
-          req.onsuccess = () => resolve(req.result || []);
-        });
+        try {
+          const db = await this.getStore();
+          return new Promise((resolve) => {
+            const tx = db.transaction(storeName, 'readonly');
+            const store = tx.objectStore(storeName);
+            const req = store.getAll();
+            req.onsuccess = () => resolve(req.result || []);
+            req.onerror = () => resolve([]);
+          });
+        } catch (err) {
+          return [];
+        }
       }
 
       static async save(storeName, item) {
         if (System.currentMode === 'viewer') {
-          System.toast('🚫 មិនអាចកែប្រែទិន្នន័យបានទេ (ស្ថិតក្នុងໂหมด View-Only)');
+          document.getElementById('adminPasswordInput').value = '';
+          document.getElementById('adminLoginModal').classList.add('active');
+          System.toast('🔒 សូមបញ្ចូលលេខសម្ងាត់ Admin ដើម្បីរក្សាទុក');
           return false;
         }
-        const db = await this.getStore();
-        return new Promise(async (resolve) => {
-          const tx = db.transaction(storeName, 'readwrite');
-          const store = tx.objectStore(storeName);
-          store.put(item);
-          tx.oncomplete = async () => {
-            resolve(true);
-          };
-        });
+        try {
+          const db = await this.getStore();
+          return new Promise((resolve) => {
+            const tx = db.transaction(storeName, 'readwrite');
+            const store = tx.objectStore(storeName);
+            store.put(item);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = (e) => {
+              System.toast('❌ កំហុសក្នុងការរក្សាទុកទិន្នន័យ');
+              resolve(false);
+            };
+            tx.onabort = () => {
+              System.toast('⚠️ ប្រតិបត្តិការត្រូវបានបោះបង់');
+              resolve(false);
+            };
+          });
+        } catch (err) {
+          System.toast('❌ មិនអាចតភ្ជាប់ជាមួយ IndexedDB បានទេ');
+          return false;
+        }
       }
 
       static async delete(storeName, id) {
         if (System.currentMode === 'viewer') {
-          System.toast('🚫 មិនអាចលុបទិន្នន័យបានទេ (ស្ថិតក្នុងໂหมด View-Only)');
+          document.getElementById('adminPasswordInput').value = '';
+          document.getElementById('adminLoginModal').classList.add('active');
+          System.toast('🔒 សូមបញ្ចូលលេខសម្ងាត់ Admin ដើម្បីលុប');
           return false;
         }
-        const db = await this.getStore();
-        return new Promise(async (resolve) => {
-          const tx = db.transaction(storeName, 'readwrite');
-          const store = tx.objectStore(storeName);
-          store.delete(id);
-          tx.oncomplete = async () => {
-            resolve(true);
-          };
-        });
+        try {
+          const db = await this.getStore();
+          return new Promise((resolve) => {
+            const tx = db.transaction(storeName, 'readwrite');
+            const store = tx.objectStore(storeName);
+            store.delete(id);
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => {
+              System.toast('❌ កំហុសក្នុងការលុបទិន្នន័យ');
+              resolve(false);
+            };
+          });
+        } catch (err) {
+          System.toast('❌ មិនអាចលុបបានទេ');
+          return false;
+        }
       }
     }
 
-    const State = { members: [], posts: [] };
+    const State = { members: [], posts: [], leaves: [] };
 
     class System {
       static currentMode = 'viewer';
@@ -802,7 +904,7 @@
 
       static cancelAdminLogin() {
         document.getElementById('adminLoginModal').classList.remove('active');
-        document.getElementById('modeSelector').value = 'viewer';
+        document.getElementById('modeSelector').value = this.currentMode;
       }
 
       static setMode(mode) {
@@ -834,6 +936,7 @@
         if(targetView === 'analytics') AnalyticsModule.render();
         if(targetView === 'leaderboard') LeaderboardModule.render();
         if(targetView === 'employee-detail') EmployeeDetailModule.render();
+        if(targetView === 'leaves') LeaveModule.render();
       }
 
       static setupNavigation() {
@@ -870,10 +973,12 @@
         const tbody = document.getElementById('memberTableBody');
         const select = document.getElementById('postMemberSelect');
         const empSelect = document.getElementById('empDetailSelect');
+        const leaveSelect = document.getElementById('leaveMemberSelect');
         if(!tbody || !select) return;
         tbody.innerHTML = '';
         select.innerHTML = '';
         if(empSelect) empSelect.innerHTML = '';
+        if(leaveSelect) leaveSelect.innerHTML = '';
 
         let filteredMembers = State.members.filter(m => {
           if (!searchVal) return true;
@@ -901,6 +1006,13 @@
             empOpt.textContent = `${m.name} [${m.code}]`;
             empSelect.appendChild(empOpt);
           }
+
+          if(leaveSelect) {
+            const leaveOpt = document.createElement('option');
+            leaveOpt.value = m.name;
+            leaveOpt.textContent = `${m.name} [${m.code}]`;
+            leaveSelect.appendChild(leaveOpt);
+          }
         });
 
         if (filteredMembers.length === 0) {
@@ -908,6 +1020,7 @@
           DashboardModule.render();
           LeaderboardModule.render();
           EmployeeDetailModule.render();
+          LeaveModule.render();
           return;
         }
 
@@ -934,10 +1047,14 @@
         DashboardModule.render();
         LeaderboardModule.render();
         EmployeeDetailModule.render();
+        LeaveModule.render();
       }
 
       static openModal(id = null) {
-        if (System.currentMode === 'viewer') return;
+        if (System.currentMode === 'viewer') {
+          System.handleModeChange('admin');
+          return;
+        }
         document.getElementById('memberForm').reset();
         document.getElementById('memberId').value = '';
         document.getElementById('memberModalTitle').innerText = 'បន្ថែមបុគ្គលិក និងគណនី Social';
@@ -968,7 +1085,6 @@
       }
 
       static async save() {
-        if (System.currentMode === 'viewer') return;
         const id = document.getElementById('memberId').value || 'MEM-' + Date.now();
         const code = document.getElementById('memCode').value.trim();
         const name = document.getElementById('memName').value.trim();
@@ -979,7 +1095,7 @@
         const tg = document.getElementById('memTg').value.trim();
 
         if (!code || !name || !role) {
-          System.toast('សូមបំព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
+          System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់!');
           return;
         }
 
@@ -992,7 +1108,6 @@
       }
 
       static async delete(id) {
-        if (System.currentMode === 'viewer') return;
         if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
           const res = await Database.delete('members', id);
           if(res) {
@@ -1226,7 +1341,10 @@
       }
 
       static openModal(id = null) {
-        if (System.currentMode === 'viewer') return;
+        if (System.currentMode === 'viewer') {
+          System.handleModeChange('admin');
+          return;
+        }
         document.getElementById('postForm').reset();
         document.getElementById('postId').value = '';
         document.getElementById('postDate').value = new Date().toISOString().split('T')[0];
@@ -1256,7 +1374,6 @@
       }
 
       static async save() {
-        if (System.currentMode === 'viewer') return;
         const id = document.getElementById('postId').value || 'POST-' + Date.now();
         const memberName = document.getElementById('postMemberSelect').value;
         const platform = document.getElementById('postPlatform').value;
@@ -1280,9 +1397,118 @@
       }
 
       static async delete(id) {
-        if (System.currentMode === 'viewer') return;
         if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យនេះមែនទេ?')) {
           const res = await Database.delete('posts', id);
+          if(res) {
+            System.toast('បានលុបជោគជ័យ');
+            this.render();
+          }
+        }
+      }
+    }
+
+    class LeaveModule {
+      static async render() {
+        State.leaves = await Database.getAll('leaves');
+        const searchVal = document.getElementById('leaveSearchInput')?.value.toLowerCase().trim() || '';
+        const tbody = document.getElementById('leaveTableBody');
+        if(!tbody) return;
+        tbody.innerHTML = '';
+
+        let filteredLeaves = State.leaves.filter(l => {
+          if (!searchVal) return true;
+          return l.memberName.toLowerCase().includes(searchVal) || l.leaveType.toLowerCase().includes(searchVal) || (l.reason && l.reason.toLowerCase().includes(searchVal));
+        });
+
+        if (filteredLeaves.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; color: var(--text-secondary); padding: 15px;">គ្មានទិន្នន័យច្បាប់ឈប់សម្រាក</td></tr>`;
+          return;
+        }
+
+        filteredLeaves.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+
+        filteredLeaves.forEach(l => {
+          const start = new Date(l.startDate);
+          const end = new Date(l.endDate);
+          const diffTime = Math.abs(end - start);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${l.memberName}</strong></td>
+            <td><span class="badge-type">${l.leaveType}</span></td>
+            <td>${l.startDate}</td>
+            <td>${l.endDate}</td>
+            <td><strong>${diffDays > 0 ? diffDays : 1} ថ្ងៃ</strong></td>
+            <td>${l.reason || '-'}</td>
+            <td class="admin-only">
+              <button class="btn btn-outline" style="padding: 2px 6px;" onclick="LeaveModule.openModal('${l.id}')"><i class="fa-solid fa-pen"></i></button>
+              <button class="btn btn-danger" style="padding: 2px 6px;" onclick="LeaveModule.delete('${l.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      static openModal(id = null) {
+        if (System.currentMode === 'viewer') {
+          System.handleModeChange('admin');
+          return;
+        }
+        document.getElementById('leaveForm').reset();
+        document.getElementById('leaveId').value = '';
+        document.getElementById('leaveStartDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveEndDate').value = new Date().toISOString().split('T')[0];
+        document.getElementById('leaveModalTitle').innerText = 'បញ្ចូលច្បាប់ឈប់សម្រាកបុគ្គលិក';
+
+        if (id) {
+          const l = State.leaves.find(x => x.id === id);
+          if (l) {
+            document.getElementById('leaveId').value = l.id;
+            document.getElementById('leaveMemberSelect').value = l.memberName;
+            document.getElementById('leaveType').value = l.leaveType;
+            document.getElementById('leaveStartDate').value = l.startDate;
+            document.getElementById('leaveEndDate').value = l.endDate;
+            document.getElementById('leaveReason').value = l.reason || '';
+            document.getElementById('leaveModalTitle').innerText = 'កែប្រែច្បាប់ឈប់សម្រាក';
+          }
+        }
+        document.getElementById('leaveModal').classList.add('active');
+      }
+
+      static closeModal() {
+        document.getElementById('leaveModal').classList.remove('active');
+      }
+
+      static async save() {
+        const id = document.getElementById('leaveId').value || 'LEAVE-' + Date.now();
+        const memberName = document.getElementById('leaveMemberSelect').value;
+        const leaveType = document.getElementById('leaveType').value;
+        const startDate = document.getElementById('leaveStartDate').value;
+        const endDate = document.getElementById('leaveEndDate').value;
+        const reason = document.getElementById('leaveReason').value.trim();
+
+        if (!memberName || !startDate || !endDate) {
+          System.toast('សូមបំពេញព័ត៌មានចាំបាច់ឱ្យបានគ្រប់គ្រាន់!');
+          return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+          System.toast('ថ្ងៃចាប់ផ្ដើមមិនអាចធំជាងថ្ងៃបញ្ចប់ទេ!');
+          return;
+        }
+
+        const res = await Database.save('leaves', { id, memberName, leaveType, startDate, endDate, reason });
+        if(res) {
+          System.toast('រក្សាទុកច្បាប់ឈប់សម្រាកបានជោគជ័យ!');
+          this.closeModal();
+          this.render();
+        }
+      }
+
+      static async delete(id) {
+        if (confirm('តើអ្នកពិតជាចង់លុបទិន្នន័យច្បាប់នេះមែនទេ?')) {
+          const res = await Database.delete('leaves', id);
           if(res) {
             System.toast('បានលុបជោគជ័យ');
             this.render();
@@ -1529,11 +1755,13 @@
       static async exportJSON() {
         const members = await Database.getAll('members');
         const posts = await Database.getAll('posts');
+        const leaves = await Database.getAll('leaves');
         const backupData = {
-          version: 1,
+          version: 2,
           exportDate: new Date().toISOString(),
           members: members,
-          posts: posts
+          posts: posts,
+          leaves: leaves
         };
 
         const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
@@ -1547,7 +1775,6 @@
       }
 
       static async importJSON(event) {
-        if (System.currentMode === 'viewer') return;
         const file = event.target.files[0];
         if (!file) return;
 
@@ -1565,10 +1792,16 @@
             for (const p of data.posts) {
               await Database.saveSilent('posts', p);
             }
+            if (data.leaves) {
+              for (const l of data.leaves) {
+                await Database.saveSilent('leaves', l);
+              }
+            }
 
             System.toast('បានបញ្ចូលទិន្នន័យ (Import JSON) រួចរាល់!');
             await MemberApp.render();
             await PostApp.render();
+            await LeaveModule.render();
           } catch (err) {
             System.toast('ឯកសារ JSON មិនត្រឹមត្រូវ ឬខូចទ្រង់ទ្រាយ!');
           }
@@ -1596,10 +1829,17 @@
               await Database.saveSilent('posts', p);
               updated = true;
             }
+            if (data.leaves) {
+              for (const l of data.leaves) {
+                await Database.saveSilent('leaves', l);
+                updated = true;
+              }
+            }
 
             if (updated) {
               await MemberApp.render();
               await PostApp.render();
+              await LeaveModule.render();
               if (statusEl) statusEl.innerText = `ស្ថានភាព៖ បានអាប់ដេតចុងក្រោយម៉ោង ${new Date().toLocaleTimeString()}`;
             }
           }
@@ -1617,9 +1857,13 @@
 
           for (const m of data.members) await Database.saveSilent('members', m);
           for (const p of data.posts) await Database.saveSilent('posts', p);
+          if (data.leaves) {
+            for (const l of data.leaves) await Database.saveSilent('leaves', l);
+          }
 
           await MemberApp.render();
           await PostApp.render();
+          await LeaveModule.render();
           System.toast('អាប់ដេតទិន្នន័យពី JSON បានសម្រេច!');
         } catch (err) {
           System.toast('មានបញ្ហា៖ រកមិនឃើញឯកសារ JSON ឬមានបញ្ហា CORS (សូមប្រើ Local Server)');
@@ -1628,19 +1872,25 @@
     }
 
     Database.saveSilent = async function(storeName, item) {
-      const db = await this.getStore();
-      return new Promise((resolve) => {
-        const tx = db.transaction(storeName, 'readwrite');
-        const store = tx.objectStore(storeName);
-        store.put(item);
-        tx.oncomplete = () => resolve(true);
-      });
+      try {
+        const db = await this.getStore();
+        return new Promise((resolve) => {
+          const tx = db.transaction(storeName, 'readwrite');
+          const store = tx.objectStore(storeName);
+          store.put(item);
+          tx.oncomplete = () => resolve(true);
+          tx.onerror = () => resolve(false);
+        });
+      } catch (err) {
+        return false;
+      }
     };
 
     window.addEventListener('DOMContentLoaded', async () => {
       await System.init();
       await MemberApp.render();
       await PostApp.render();
+      await LeaveModule.render();
       injectUIUpdates();
     });
 
