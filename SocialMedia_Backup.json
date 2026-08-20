@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "exportDate": "2026-08-20T01:47:31.550Z",
+  "version": 2,
+  "exportDate": "2026-08-20T02:28:28.394Z",
   "members": [
     {
       "id": "MEM-1786418320702",
@@ -2873,6 +2873,16 @@
       "time": "08:27",
       "title": "Nita Foam Premium",
       "link": "https://www.facebook.com/share/r/1BpSVdw6Px/?mibextid=wwXIfr"
+    }
+  ],
+  "leaves": [
+    {
+      "id": "LEAVE-1787192895095",
+      "memberName": "Sana",
+      "leaveType": "ច្បាប់ពិសេសផ្សេងៗ (Other Leave)",
+      "startDate": "2026-08-16",
+      "endDate": "2026-08-16",
+      "reason": "ឈប់សម្រាកការងារ"
     }
   ]
 }
