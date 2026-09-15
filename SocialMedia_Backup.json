@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportDate": "2026-09-11T02:47:36.512Z",
+  "exportDate": "2026-09-15T12:15:11.434Z",
   "members": [
     {
       "id": "MEM-1786418320702",
@@ -23,16 +23,6 @@
       "tg": ""
     },
     {
-      "id": "MEM-1786423402210",
-      "code": "001",
-      "name": "ណៃ អែតមិន",
-      "role": "Admin",
-      "phone": "",
-      "fb": "https://www.facebook.com/profile.php?id=61577823900586",
-      "tt": "",
-      "tg": "https://t.me/ognaihikk"
-    },
-    {
       "id": "MEM-1786423469738",
       "code": "002",
       "name": "Lonh Sreymai",
@@ -41,16 +31,6 @@
       "fb": "",
       "tt": "https://www.tiktok.com/@mey_eie",
       "tg": "https://t.me/SREYMAI_12"
-    },
-    {
-      "id": "MEM-1786423537626",
-      "code": "003",
-      "name": "Singha ~ សឹង្ហា",
-      "role": "Admin",
-      "phone": "",
-      "fb": "",
-      "tt": "https://www.tiktok.com/@singha12am",
-      "tg": ""
     },
     {
       "id": "MEM-1786423590787",
@@ -73,16 +53,6 @@
       "tg": "https://t.me/Chandarany"
     },
     {
-      "id": "MEM-1786423756448",
-      "code": "006",
-      "name": "💸🌸Oun Nyy💸🪷",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
       "id": "MEM-1786423819920",
       "code": "007",
       "name": "Theara",
@@ -93,16 +63,6 @@
       "tg": "https://t.me/Theara_kh"
     },
     {
-      "id": "MEM-1786426095391",
-      "code": "010",
-      "name": "Mare-រេ",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "https://www.facebook.com/profile.php?id=61583946345680&mibextid=wwXIfr&rdid=HXtjhMiNz4QZqldZ&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Cv46d4Qce%2F%3Fmibextid%3DwwXIfr#",
-      "tt": "https://www.tiktok.com/@boeuy.kore",
-      "tg": "https://t.me/adggjkm"
-    },
-    {
       "id": "MEM-1786426380677",
       "code": "011",
       "name": "Hoeur Chanya&Xü Yäjübi",
@@ -111,36 +71,6 @@
       "fb": "",
       "tt": "",
       "tg": ""
-    },
-    {
-      "id": "MEM-1786426452338",
-      "code": "012",
-      "name": "Samuth Sophal",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": "https://t.me/Phal29"
-    },
-    {
-      "id": "MEM-1786426508990",
-      "code": "013",
-      "name": "រ៉ូត ហូយអុី",
-      "role": "នាក់កាន់Page & ធ្វើការក្នុងហាង",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
-      "id": "MEM-1786426551168",
-      "code": "014",
-      "name": "VAT 𝑽𝑶𝑵𝑮",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": "https://t.me/Vat_Vong"
     },
     {
       "id": "MEM-1786426582107",
@@ -173,16 +103,6 @@
       "tg": ""
     },
     {
-      "id": "MEM-1786426709305",
-      "code": "018",
-      "name": "Lnn SreyJing",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": "https://t.me/sreychingg"
-    },
-    {
       "id": "MEM-1786427007116",
       "code": "019",
       "name": "Chhan Sophea",
@@ -191,16 +111,6 @@
       "fb": "",
       "tt": "",
       "tg": "https://t.me/SREYPHEA_24"
-    },
-    {
-      "id": "MEM-1786427033740",
-      "code": "020",
-      "name": "⋆. 𐙚 ˚ Thean",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
     },
     {
       "id": "MEM-1786427078403",
@@ -243,36 +153,6 @@
       "tg": ""
     },
     {
-      "id": "MEM-1786427210648",
-      "code": "025",
-      "name": "រ. សារ៉ាក់",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
-      "id": "MEM-1786427243491",
-      "code": "026",
-      "name": "Chailorn Long",
-      "role": "Promoter",
-      "phone": "+85514293386",
-      "fb": "",
-      "tt": "",
-      "tg": "https://t.me/chailorn_15"
-    },
-    {
-      "id": "MEM-1786427275687",
-      "code": "027",
-      "name": "Lyy Na",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
       "id": "MEM-1786427309910",
       "code": "028",
       "name": "Qeurn MASKARA",
@@ -281,56 +161,6 @@
       "fb": "",
       "tt": "",
       "tg": "https://t.me/mii_Ma_smos"
-    },
-    {
-      "id": "MEM-1786427355699",
-      "code": "029",
-      "name": "Xing Fa",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
-      "id": "MEM-1786427412292",
-      "code": "030",
-      "name": "គុណ សុណាត",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": "https://t.me/Sona_Nath"
-    },
-    {
-      "id": "MEM-1786427444538",
-      "code": "031",
-      "name": "SREYNET SREYNET",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
-      "id": "MEM-1786427488976",
-      "code": "032",
-      "name": "Mey",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
-    },
-    {
-      "id": "MEM-1786427507133",
-      "code": "033",
-      "name": "Zary",
-      "role": "Promoter",
-      "phone": "",
-      "fb": "",
-      "tt": "",
-      "tg": ""
     },
     {
       "id": "MEM-1786427535015",
@@ -5313,6 +5143,196 @@
       "time": "09:12",
       "title": "Nita Foam Premium",
       "link": "https://www.facebook.com/share/r/1HqKssMQxX/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789181687471",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-09-11",
+      "time": "09:48",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1aum7WdP4S/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789181731694",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-09-11",
+      "time": "11:01",
+      "title": "Kasar Scrup",
+      "link": "https://vt.tiktok.com/ZSqfM8uJY/"
+    },
+    {
+      "id": "POST-1789473470394",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-11",
+      "time": "17:02",
+      "title": "Kesar scrup",
+      "link": "https://www.facebook.com/share/r/1bmRsxPYN5/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473536681",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-11",
+      "time": "17:02",
+      "title": "សាប៊ូដុះខ្លួន",
+      "link": "https://www.facebook.com/share/p/1DZPuRtL3K/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473574857",
+      "memberName": "Vann -វណ្ណ",
+      "platform": "Tiktok",
+      "postType": "រូបភាព",
+      "date": "2026-09-11",
+      "time": "20:03",
+      "title": "Nita Foam Premium",
+      "link": "https://vt.tiktok.com/ZSqPPA7qM"
+    },
+    {
+      "id": "POST-1789473617553",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-09-11",
+      "time": "20:23",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1HQtRmszif/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473792889",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-12",
+      "time": "09:48",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/1MNoFw6L1r/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473843513",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-12",
+      "time": "10:42",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/p/1Dfk5NK6WH/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473912793",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-12",
+      "time": "17:23",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/p/1LLRsKxpiA/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789473967865",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-14",
+      "time": "08:57",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/61593172045762/posts/pfbid0ooALiSWvUZsofFJYfopXiQwodQ46gVFDJ3KnoMMP6jvXBzjGhcCi5voG16UR4GEKl/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474006041",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-14",
+      "time": "21:51",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/1F9DjzGXYM/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474124530",
+      "memberName": "Theara",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-14",
+      "time": "09:53",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/1DEuJ7W9KD/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474159922",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-14",
+      "time": "17:59",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/p/1DELDbKFZt/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474235530",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-14",
+      "time": "20:04",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/p/1EcqtTGW56/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474283042",
+      "memberName": "Vrieak pich",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-09-15",
+      "time": "16:41",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/1B51CbhyWS/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474316858",
+      "memberName": "Vrieak pich",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-09-15",
+      "time": "16:48",
+      "title": "Nita Foam Premium",
+      "link": "https://vt.tiktok.com/ZSqX3RR2U/"
+    },
+    {
+      "id": "POST-1789474350490",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-09-15",
+      "time": "18:07",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1E8cx9PKF3/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1789474386658",
+      "memberName": "Chhan Sophea",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-09-15",
+      "time": "18:29",
+      "title": "Nita Foam Premium",
+      "link": "https://vt.tiktok.com/ZSq4LRWdm/"
+    },
+    {
+      "id": "POST-1789474410441",
+      "memberName": "Chhan Sophea",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-09-15",
+      "time": "19:06",
+      "title": "Nita Foam Premium",
+      "link": "https://www.facebook.com/share/r/1BsZR3c1Fd/"
     }
   ],
   "leaves": [
