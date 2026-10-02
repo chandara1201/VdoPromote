@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "exportDate": "2026-09-25T15:15:01.215Z",
+  "exportDate": "2026-10-02T05:16:34.432Z",
   "members": [
     {
       "id": "MEM-1786418320702",
@@ -96,7 +96,7 @@
       "id": "MEM-1786427007116",
       "code": "010",
       "name": "Chhan Sophea",
-      "role": "Promoter",
+      "role": "Training",
       "phone": "",
       "fb": "",
       "tt": "",
@@ -106,7 +106,7 @@
       "id": "MEM-1786427181927",
       "code": "011",
       "name": "ប៉ក់ គឹម សៀន",
-      "role": "Promoter",
+      "role": "Training",
       "phone": "",
       "fb": "https://www.facebook.com/eii.sean.2025",
       "tt": "",
@@ -116,7 +116,7 @@
       "id": "MEM-1786427815771",
       "code": "012",
       "name": "Chrun Phallim",
-      "role": "Promoter",
+      "role": "Training",
       "phone": "",
       "fb": "",
       "tt": "",
@@ -126,11 +126,51 @@
       "id": "MEM-1786960931232",
       "code": "013",
       "name": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
-      "role": "Traning",
+      "role": "Promoter",
       "phone": "",
       "fb": "",
       "tt": "",
       "tg": ""
+    },
+    {
+      "id": "MEM-1790917615201",
+      "code": "014",
+      "name": "LI SA",
+      "role": "Training",
+      "phone": "",
+      "fb": "",
+      "tt": "",
+      "tg": "https://t.me/than_Lysa"
+    },
+    {
+      "id": "MEM-1790917685209",
+      "code": "015",
+      "name": "ម៉ៅ ចាន់ថ្លា",
+      "role": "Training",
+      "phone": "",
+      "fb": "",
+      "tt": "",
+      "tg": ""
+    },
+    {
+      "id": "MEM-1790917734385",
+      "code": "016",
+      "name": "Eee🍉",
+      "role": "Training",
+      "phone": "",
+      "fb": "",
+      "tt": "",
+      "tg": "https://t.me/kychannary1"
+    },
+    {
+      "id": "MEM-1790917756889",
+      "code": "017",
+      "name": "Zeii Pov",
+      "role": "Training",
+      "phone": "",
+      "fb": "",
+      "tt": "",
+      "tg": "https://t.me/povbii7"
     }
   ],
   "posts": [
@@ -5183,6 +5223,106 @@
       "time": "20:11",
       "title": "Foam",
       "link": "https://www.facebook.com/share/r/1FUQZd8UKp/"
+    },
+    {
+      "id": "POST-1790917793793",
+      "memberName": "LI SA",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "08:16",
+      "title": "Foam",
+      "link": "https://vt.tiktok.com/ZSbDWkjME"
+    },
+    {
+      "id": "POST-1790917853801",
+      "memberName": "ម៉ៅ ចាន់ថ្លា",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "12:34",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/r/1NYvtc8fiw/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1790917883273",
+      "memberName": "Chhan Sophea",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "15:44",
+      "title": "Foam",
+      "link": "https://vt.tiktok.com/ZSbUssnQV/"
+    },
+    {
+      "id": "POST-1790917922889",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Tiktok",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "16:36",
+      "title": "Scrup",
+      "link": "https://vt.tiktok.com/ZSbUssnQV/"
+    },
+    {
+      "id": "POST-1790918001545",
+      "memberName": "ន ប៊ុនណេង",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-10-01",
+      "time": "17:30",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/p/1DXCFi49s4/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1790918048809",
+      "memberName": "ភី រីយ៉ា",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-10-01",
+      "time": "20:15",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/r/1HiMAiHQvA/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1790918081265",
+      "memberName": "(⁠✿⁠ ⁠♡⁠វ‿⁠ណ្ណា♡⁠)",
+      "platform": "Facebook",
+      "postType": "រូបភាព",
+      "date": "2026-10-01",
+      "time": "20:27",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/p/1HTGE1gSu5/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1790918112857",
+      "memberName": "LI SA",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "20:33",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/r/1JmCpfrqBQ/?mibextid=wwXIfr"
+    },
+    {
+      "id": "POST-1790918154457",
+      "memberName": "Chrun Phallim",
+      "platform": "Tiktok",
+      "postType": "រូបភាព",
+      "date": "2026-10-01",
+      "time": "22:32",
+      "title": "Foam",
+      "link": "https://vt.tiktok.com/ZSbyCFdhP/"
+    },
+    {
+      "id": "POST-1790918183233",
+      "memberName": "Chrun Phallim",
+      "platform": "Facebook",
+      "postType": "វីដេអូ",
+      "date": "2026-10-01",
+      "time": "22:45",
+      "title": "Foam",
+      "link": "https://www.facebook.com/share/v/14q6EbRX97t/"
     }
   ],
   "leaves": []
